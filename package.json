@@ -1,0 +1,19 @@
+{
+  "name": "my-route",
+  "version": "1.0.0",
+  "description": "My Route app and admin - Monorepo with web and mobile frontend and backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaximeMoreauPro/my-route.git"
+  },
+  "author": "Maxime Moreau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaximeMoreauPro/my-route/issues"
+  },
+  "homepage": "https://github.com/MaximeMoreauPro/my-route#readme"
+}

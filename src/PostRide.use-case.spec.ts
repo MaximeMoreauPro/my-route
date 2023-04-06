@@ -1,3 +1,5 @@
+import { PostRideCommand, PostRideUseCase, Ride } from './PostRide.use-case';
+
 describe('Feature: Post a ride', () => {
   test('Alex can post a ride', () => {
     givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
@@ -23,36 +25,23 @@ describe('Feature: Post a ride', () => {
 
 let now: Date;
 
-let ride: {
-  driver: string;
-  departurePlace: string;
-  departureTime: Date;
-  destinationPlace: string;
-  destinatioTime: Date;
-  postedAt: Date;
-};
+let ride: Ride;
+
+const postRideUseCase = new PostRideUseCase(
+  (rideToSave: Ride) => {
+    ride = rideToSave;
+  },
+  () => now
+);
 
 function givenNowIs(datetime: Date) {
   now = datetime;
 }
 
-function whenUserPostRide(postRideCommand: {
-  driver: string;
-  departurePlace: string;
-  departureTime: Date;
-  destinationPlace: string;
-  destinatioTime: Date;
-}) {
-  ride = { ...postRideCommand, postedAt: now };
+function whenUserPostRide(postRideCommand: PostRideCommand) {
+  postRideUseCase.handle(postRideCommand);
 }
 
-function thenPostedRideShouldBe(expectedRide: {
-  driver: string;
-  departurePlace: string;
-  departureTime: Date;
-  destinationPlace: string;
-  destinatioTime: Date;
-  postedAt: Date;
-}) {
+function thenPostedRideShouldBe(expectedRide: Ride) {
   expect(expectedRide).toEqual(ride);
 }

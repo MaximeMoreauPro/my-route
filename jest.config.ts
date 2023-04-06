@@ -1,11 +1,11 @@
-import { Config} from 'jest';
+import { Config } from 'jest';
 
 /*
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
 
-const config: Config =  {
+const config: Config = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -161,9 +161,7 @@ const config: Config =  {
   // ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  // testPathIgnorePatterns: [
-  //   '/node_modules/'
-  // ],
+  testPathIgnorePatterns: ['/node_modules/', 'dist/'],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],

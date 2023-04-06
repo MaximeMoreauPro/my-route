@@ -1,12 +1,12 @@
 import {
-  DateProvider,
   EmptyPlaceError,
   PostRideCommand,
   PostRideUseCase,
   Ride,
-  RideRepository,
   SameDepartureAndDestinationTimeError,
 } from './PostRide.use-case';
+import { InMemoryRideRepository } from './RideRepository.in-memory';
+import { StubDateProvider } from './DateProvider.stub';
 
 describe('Feature: Post a ride', () => {
   let fixture: Fixture;
@@ -82,26 +82,6 @@ describe('Feature: Post a ride', () => {
     });
   });
 });
-
-class InMemoryRideRepository implements RideRepository {
-  ride!: Ride;
-
-  save(rideToSave: Ride) {
-    this.ride = rideToSave;
-  }
-}
-
-class StubDateProvider implements DateProvider {
-  private now!: Date;
-
-  getNow() {
-    return this.now;
-  }
-
-  setNow(datetime: Date) {
-    this.now = datetime;
-  }
-}
 
 type Fixture = ReturnType<typeof createFixture>;
 

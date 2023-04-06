@@ -3,7 +3,7 @@ export type PostRideCommand = {
   departurePlace: string;
   departureTime: Date;
   destinationPlace: string;
-  destinatioTime: Date;
+  destinationTime: Date;
 };
 
 export type Ride = {
@@ -11,17 +11,37 @@ export type Ride = {
   departurePlace: string;
   departureTime: Date;
   destinationPlace: string;
-  destinatioTime: Date;
+  destinationTime: Date;
   postedAt: Date;
 };
 
+export interface RideRepository {
+  save: (ride: Ride) => void;
+}
+
+export interface DateProvider {
+  getNow: () => Date;
+}
+
+export class SameDepartureAndDestinationTimeError extends Error {}
+
 export class PostRideUseCase {
   constructor(
-    private readonly saveRide: (ride: Ride) => void,
-    private readonly getNow: () => Date
+    private readonly rideRepository: RideRepository,
+    private readonly dateProvider: DateProvider
   ) {}
 
   handle(postRideCommand: PostRideCommand) {
-    this.saveRide({ ...postRideCommand, postedAt: this.getNow() });
+    if (
+      postRideCommand.departureTime.toUTCString() ===
+      postRideCommand.destinationTime.toUTCString()
+    ) {
+      throw new SameDepartureAndDestinationTimeError();
+    }
+
+    this.rideRepository.save({
+      ...postRideCommand,
+      postedAt: this.dateProvider.getNow(),
+    });
   }
 }

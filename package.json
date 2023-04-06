@@ -1,6 +1,6 @@
 {
   "name": "my-route",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "My Route app and admin - Monorepo with web and mobile frontend and backend",
   "main": "dist/index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "@types/node": "^18.15.11",
     "babel-jest": "^29.5.0",
     "jest": "^29.5.0",
-    "prettier": "2.8.7",
+    "prettier": "^2.8.7",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.3"
   },

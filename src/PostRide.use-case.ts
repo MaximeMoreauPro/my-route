@@ -25,6 +25,8 @@ export interface DateProvider {
 
 export class SameDepartureAndDestinationTimeError extends Error {}
 
+export class EmptyPlaceError extends Error {}
+
 export class PostRideUseCase {
   constructor(
     private readonly rideRepository: RideRepository,
@@ -37,6 +39,13 @@ export class PostRideUseCase {
       postRideCommand.destinationTime.toUTCString()
     ) {
       throw new SameDepartureAndDestinationTimeError();
+    }
+
+    if (
+      postRideCommand.departurePlace.trim().length === 0 ||
+      postRideCommand.destinationPlace.trim().length === 0
+    ) {
+      throw new EmptyPlaceError();
     }
 
     this.rideRepository.save({

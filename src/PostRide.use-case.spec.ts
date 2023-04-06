@@ -1,5 +1,6 @@
 import {
   DateProvider,
+  EmptyPlaceError,
   PostRideCommand,
   PostRideUseCase,
   Ride,
@@ -8,10 +9,16 @@ import {
 } from './PostRide.use-case';
 
 describe('Feature: Post a ride', () => {
-  test('Alex can post a ride', () => {
-    givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+  let fixture: Fixture;
 
-    whenUserPostRide({
+  beforeEach(() => {
+    fixture = createFixture();
+  });
+
+  test('Alex can post a ride', () => {
+    fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+
+    fixture.whenUserPostRide({
       driver: 'Alex',
       departurePlace: 'London',
       departureTime: new Date('2023-01-01T12:30:00.000Z'),
@@ -19,7 +26,7 @@ describe('Feature: Post a ride', () => {
       destinationTime: new Date('2023-01-01T14:30:00.000Z'),
     });
 
-    thenPostedRideShouldBe({
+    fixture.thenPostedRideShouldBe({
       driver: 'Alex',
       departurePlace: 'London',
       departureTime: new Date('2023-01-01T12:30:00.000Z'),
@@ -29,33 +36,63 @@ describe('Feature: Post a ride', () => {
     });
   });
 
-  test('Alex cannot post a ride with the same departure and arrival time', () => {
-    givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+  describe('Rule: the departure and destination time must be different', () => {
+    test('Alex cannot post a ride with the same departure and arrival time', () => {
+      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
 
-    whenUserPostRide({
-      driver: 'Alex',
-      departurePlace: 'London',
-      departureTime: new Date('2023-01-01T12:30:00.000Z'),
-      destinationPlace: 'Brighton',
-      destinationTime: new Date('2023-01-01T12:30:00.000Z'),
+      fixture.whenUserPostRide({
+        driver: 'Alex',
+        departurePlace: 'London',
+        departureTime: new Date('2023-01-01T12:30:00.000Z'),
+        destinationPlace: 'Brighton',
+        destinationTime: new Date('2023-01-01T12:30:00.000Z'),
+      });
+
+      fixture.thenErrorShouldBe(SameDepartureAndDestinationTimeError);
+    });
+  });
+
+  describe('Rule: the place must not be empty', () => {
+    test('Alex cannot post a ride with an empty departure place', () => {
+      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+
+      fixture.whenUserPostRide({
+        driver: 'Alex',
+        departurePlace: '   ',
+        departureTime: new Date('2023-01-01T12:30:00.000Z'),
+        destinationPlace: 'Brighton',
+        destinationTime: new Date('2023-01-01T14:30:00.000Z'),
+      });
+
+      fixture.thenErrorShouldBe(EmptyPlaceError);
     });
 
-    thenErrorShouldBe(SameDepartureAndDestinationTimeError);
+    test('Alex cannot post a ride with an empty destination place', () => {
+      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+
+      fixture.whenUserPostRide({
+        driver: 'Alex',
+        departurePlace: 'London',
+        departureTime: new Date('2023-01-01T12:30:00.000Z'),
+        destinationPlace: '   ',
+        destinationTime: new Date('2023-01-01T14:30:00.000Z'),
+      });
+
+      fixture.thenErrorShouldBe(EmptyPlaceError);
+    });
   });
 });
 
-let ride: Ride;
-
 class InMemoryRideRepository implements RideRepository {
+  ride!: Ride;
+
   save(rideToSave: Ride) {
-    ride = rideToSave;
+    this.ride = rideToSave;
   }
 }
 
-const rideRepository = new InMemoryRideRepository();
-
 class StubDateProvider implements DateProvider {
-  private now: Date;
+  private now!: Date;
 
   getNow() {
     return this.now;
@@ -66,30 +103,32 @@ class StubDateProvider implements DateProvider {
   }
 }
 
-const dateProvider = new StubDateProvider();
+type Fixture = ReturnType<typeof createFixture>;
 
-const postRideUseCase = new PostRideUseCase(rideRepository, dateProvider);
+const createFixture = () => {
+  const dateProvider = new StubDateProvider();
+  const rideRepository = new InMemoryRideRepository();
+  const postRideUseCase = new PostRideUseCase(rideRepository, dateProvider);
+  let thrownError: Error;
 
-let thrownError: Error;
-
-function givenNowIs(datetime: Date) {
-  dateProvider.setNow(datetime);
-}
-
-function whenUserPostRide(postRideCommand: PostRideCommand) {
-  try {
-    postRideUseCase.handle(postRideCommand);
-  } catch (e) {
-    if (e instanceof Error) {
-      thrownError = e;
-    }
-  }
-}
-
-function thenPostedRideShouldBe(expectedRide: Ride) {
-  expect(expectedRide).toEqual(ride);
-}
-
-function thenErrorShouldBe(expectedErrorClass: new () => Error) {
-  expect(thrownError).toBeInstanceOf(expectedErrorClass);
-}
+  return {
+    givenNowIs(datetime: Date) {
+      dateProvider.setNow(datetime);
+    },
+    whenUserPostRide(postRideCommand: PostRideCommand) {
+      try {
+        postRideUseCase.handle(postRideCommand);
+      } catch (e) {
+        if (e instanceof Error) {
+          thrownError = e;
+        }
+      }
+    },
+    thenPostedRideShouldBe(expectedRide: Ride) {
+      expect(expectedRide).toEqual(rideRepository.ride);
+    },
+    thenErrorShouldBe(expectedErrorClass: new () => Error) {
+      expect(thrownError).toBeInstanceOf(expectedErrorClass);
+    },
+  };
+};

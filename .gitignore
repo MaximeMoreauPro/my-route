@@ -5,3 +5,7 @@ dist
 
 # jest code coverage reports
 coverage
+
+# stryker temp files
+.stryker-tmp
+reports/mutation

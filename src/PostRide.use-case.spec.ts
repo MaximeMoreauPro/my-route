@@ -1,12 +1,7 @@
-import {
-  EmptyPlaceError,
-  PostRideCommand,
-  PostRideUseCase,
-  Ride,
-  SameDepartureAndDestinationTimeError,
-} from './PostRide.use-case';
+import { PostRideCommand, PostRideUseCase, Ride } from './PostRide.use-case';
 import { InMemoryRideRepository } from './RideRepository.in-memory';
 import { StubDateProvider } from './DateProvider.stub';
+import { MyRouteError, MyRouteErrorCode } from './MyRouteError';
 
 describe('Feature: Post a ride', () => {
   let fixture: Fixture;
@@ -48,7 +43,10 @@ describe('Feature: Post a ride', () => {
         destinationTime: new Date('2023-01-01T12:30:00.000Z'),
       });
 
-      fixture.thenErrorShouldBe(SameDepartureAndDestinationTimeError);
+      fixture.thenErrorShouldBe(
+        'SameDepartureAndDestinationTimeError',
+        'the departure and destination time must be different'
+      );
     });
   });
 
@@ -64,7 +62,10 @@ describe('Feature: Post a ride', () => {
         destinationTime: new Date('2023-01-01T14:30:00.000Z'),
       });
 
-      fixture.thenErrorShouldBe(EmptyPlaceError);
+      fixture.thenErrorShouldBe(
+        'EmptyPlaceError',
+        'the place must not be empty'
+      );
     });
 
     test('Alex cannot post a ride with an empty destination place', () => {
@@ -78,7 +79,10 @@ describe('Feature: Post a ride', () => {
         destinationTime: new Date('2023-01-01T14:30:00.000Z'),
       });
 
-      fixture.thenErrorShouldBe(EmptyPlaceError);
+      fixture.thenErrorShouldBe(
+        'EmptyPlaceError',
+        'the place must not be empty'
+      );
     });
   });
 });
@@ -89,7 +93,7 @@ const createFixture = () => {
   const dateProvider = new StubDateProvider();
   const rideRepository = new InMemoryRideRepository();
   const postRideUseCase = new PostRideUseCase(rideRepository, dateProvider);
-  let thrownError: Error;
+  let thrownError: MyRouteError;
 
   return {
     givenNowIs(datetime: Date) {
@@ -99,7 +103,7 @@ const createFixture = () => {
       try {
         postRideUseCase.handle(postRideCommand);
       } catch (e) {
-        if (e instanceof Error) {
+        if (e instanceof MyRouteError) {
           thrownError = e;
         }
       }
@@ -107,8 +111,13 @@ const createFixture = () => {
     thenPostedRideShouldBe(expectedRide: Ride) {
       expect(expectedRide).toEqual(rideRepository.ride);
     },
-    thenErrorShouldBe(expectedErrorClass: new () => Error) {
-      expect(thrownError).toBeInstanceOf(expectedErrorClass);
+    thenErrorShouldBe(
+      expectedErrorCode: MyRouteErrorCode,
+      expectedErrorMessage: string
+    ) {
+      expect(thrownError).toBeInstanceOf(MyRouteError);
+      expect(thrownError.code).toBe(expectedErrorCode);
+      expect(thrownError.message).toBe(expectedErrorMessage);
     },
   };
 };

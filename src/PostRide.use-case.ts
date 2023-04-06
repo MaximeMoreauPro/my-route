@@ -1,3 +1,5 @@
+import { MyRouteError } from './MyRouteError';
+
 export type PostRideCommand = {
   driver: string;
   departurePlace: string;
@@ -23,10 +25,6 @@ export interface DateProvider {
   getNow: () => Date;
 }
 
-export class SameDepartureAndDestinationTimeError extends Error {}
-
-export class EmptyPlaceError extends Error {}
-
 export class PostRideUseCase {
   constructor(
     private readonly rideRepository: RideRepository,
@@ -38,14 +36,14 @@ export class PostRideUseCase {
       postRideCommand.departureTime.toUTCString() ===
       postRideCommand.destinationTime.toUTCString()
     ) {
-      throw new SameDepartureAndDestinationTimeError();
+      throw new MyRouteError('SameDepartureAndDestinationTimeError');
     }
 
     if (
       postRideCommand.departurePlace.trim().length === 0 ||
       postRideCommand.destinationPlace.trim().length === 0
     ) {
-      throw new EmptyPlaceError();
+      throw new MyRouteError('EmptyPlaceError');
     }
 
     this.rideRepository.save({

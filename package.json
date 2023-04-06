@@ -5,8 +5,12 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
+    "code:format": "prettier src",
+    "code:format-write": "prettier src --write",
+    "code:lint": "eslint src --max-warnings 0",
+    "code:typing": "tsc --noEmit",
     "test:unit": "jest",
-    "test:mutation": "yarn stryker run"
+    "test:mutation": "stryker run"
   },
   "bin": {
     "my-route": "dist/index.js"
@@ -29,7 +33,10 @@
     "@stryker-mutator/jest-runner": "^6.4.2",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
     "babel-jest": "^29.5.0",
+    "eslint": "^8.37.0",
     "jest": "^29.5.0",
     "prettier": "^2.8.7",
     "ts-node": "^10.9.1",

@@ -3,7 +3,7 @@ import { InMemoryRideRepository } from './RideRepository.in-memory';
 import { StubDateProvider } from './DateProvider.stub';
 import { MyRouteError, MyRouteErrorCode } from './MyRouteError';
 
-describe('Feature: Post a ride', () => {
+describe('Feature: post a ride', () => {
   let fixture: Fixture;
 
   beforeEach(() => {
@@ -135,6 +135,25 @@ describe('Feature: Post a ride', () => {
       fixture.thenErrorShouldBe(
         'EmptyPlaceError',
         'the place must not be empty'
+      );
+    });
+  });
+
+  describe('Rule: the departure and destination places must be different', () => {
+    test('Alex cannot post a ride the same departure and destination place', () => {
+      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+
+      fixture.whenUserPostRide({
+        driver: 'Alex',
+        departurePlace: 'London',
+        departureTime: new Date('2023-01-01T12:30:00.000Z'),
+        destinationPlace: 'London',
+        destinationTime: new Date('2023-01-01T14:30:00.000Z'),
+      });
+
+      fixture.thenErrorShouldBe(
+        'SameDepartureAndDestinationPlaceError',
+        'the departure and destination places must be different'
       );
     });
   });

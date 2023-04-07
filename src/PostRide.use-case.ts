@@ -45,11 +45,15 @@ export class PostRideUseCase {
       throw new MyRouteError('DepartureTimeAfterDestinationTimeError');
     }
 
-    if (
-      postRideCommand.departurePlace.trim().length === 0 ||
-      postRideCommand.destinationPlace.trim().length === 0
-    ) {
+    const departurePlace = postRideCommand.departurePlace.trim();
+    const destinationPlace = postRideCommand.destinationPlace.trim();
+
+    if (departurePlace.length === 0 || destinationPlace.length === 0) {
       throw new MyRouteError('EmptyPlaceError');
+    }
+
+    if (departurePlace === destinationPlace) {
+      throw new MyRouteError('SameDepartureAndDestinationPlaceError');
     }
 
     this.rideRepository.save({

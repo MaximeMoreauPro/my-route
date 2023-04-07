@@ -31,7 +31,7 @@ describe('Feature: Post a ride', () => {
     });
   });
 
-  describe('Rule: the departure and destination time must be different', () => {
+  describe('Rule: the departure time must be before the destination time', () => {
     test('Alex cannot post a ride with the same departure and arrival time', () => {
       fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
 
@@ -44,8 +44,61 @@ describe('Feature: Post a ride', () => {
       });
 
       fixture.thenErrorShouldBe(
-        'SameDepartureAndDestinationTimeError',
-        'the departure and destination time must be different'
+        'DepartureTimeAfterDestinationTimeError',
+        'the departure time must be before the destination time'
+      );
+    });
+
+    test('Alex cannot post a ride with the departure time after the arrival time', () => {
+      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+
+      fixture.whenUserPostRide({
+        driver: 'Alex',
+        departurePlace: 'London',
+        departureTime: new Date('2023-01-01T12:30:00.000Z'),
+        destinationPlace: 'Brighton',
+        destinationTime: new Date('2023-01-01T11:30:00.000Z'),
+      });
+
+      fixture.thenErrorShouldBe(
+        'DepartureTimeAfterDestinationTimeError',
+        'the departure time must be before the destination time'
+      );
+    });
+  });
+
+  describe('Rule: the departure time must be in the future', () => {
+    test('Alex cannot post a ride with the departure time in the past', () => {
+      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+
+      fixture.whenUserPostRide({
+        driver: 'Alex',
+        departurePlace: 'London',
+        departureTime: new Date('2023-01-01T07:30:00.000Z'),
+        destinationPlace: 'Brighton',
+        destinationTime: new Date('2023-01-01T11:30:00.000Z'),
+      });
+
+      fixture.thenErrorShouldBe(
+        'PassedDepartureTimeError',
+        'the departure time must be in the future'
+      );
+    });
+
+    test('Alex cannot post a ride with the departure time set at the current time', () => {
+      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+
+      fixture.whenUserPostRide({
+        driver: 'Alex',
+        departurePlace: 'London',
+        departureTime: new Date('2023-01-01T08:00:00.000Z'),
+        destinationPlace: 'Brighton',
+        destinationTime: new Date('2023-01-01T11:30:00.000Z'),
+      });
+
+      fixture.thenErrorShouldBe(
+        'PassedDepartureTimeError',
+        'the departure time must be in the future'
       );
     });
   });

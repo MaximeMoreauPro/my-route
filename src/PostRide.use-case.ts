@@ -32,11 +32,17 @@ export class PostRideUseCase {
   ) {}
 
   handle(postRideCommand: PostRideCommand) {
+    const now = this.dateProvider.getNow();
+
+    if (postRideCommand.departureTime.getTime() <= now.getTime()) {
+      throw new MyRouteError('PassedDepartureTimeError');
+    }
+
     if (
-      postRideCommand.departureTime.toUTCString() ===
-      postRideCommand.destinationTime.toUTCString()
+      postRideCommand.destinationTime.getTime() <=
+      postRideCommand.departureTime.getTime()
     ) {
-      throw new MyRouteError('SameDepartureAndDestinationTimeError');
+      throw new MyRouteError('DepartureTimeAfterDestinationTimeError');
     }
 
     if (
@@ -48,7 +54,7 @@ export class PostRideUseCase {
 
     this.rideRepository.save({
       ...postRideCommand,
-      postedAt: this.dateProvider.getNow(),
+      postedAt: now,
     });
   }
 }

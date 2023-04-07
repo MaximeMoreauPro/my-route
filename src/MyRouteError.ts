@@ -1,11 +1,13 @@
 export type MyRouteErrorCode =
-  | 'SameDepartureAndDestinationTimeError'
-  | 'EmptyPlaceError';
+  | 'EmptyPlaceError'
+  | 'DepartureTimeAfterDestinationTimeError'
+  | 'PassedDepartureTimeError';
 
 const DEFAULT_ERROR_MESSAGE: Record<MyRouteErrorCode, string> = {
-  SameDepartureAndDestinationTimeError:
-    'the departure and destination time must be different',
   EmptyPlaceError: 'the place must not be empty',
+  DepartureTimeAfterDestinationTimeError:
+    'the departure time must be before the destination time',
+  PassedDepartureTimeError: 'the departure time must be in the future',
 };
 
 export class MyRouteError extends Error {

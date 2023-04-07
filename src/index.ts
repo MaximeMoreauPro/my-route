@@ -6,10 +6,10 @@ import { PostRideCommand, PostRideUseCase } from './PostRide.use-case';
 import { InMemoryRideRepository } from './RideRepository.in-memory';
 import { RealDateProvider } from './DateProvider.real';
 
-const messageRepository = new InMemoryRideRepository();
+const rideRepository = new InMemoryRideRepository();
 const dateProvider = new RealDateProvider();
 
-const postRideUseCase = new PostRideUseCase(messageRepository, dateProvider);
+const postRideUseCase = new PostRideUseCase(rideRepository, dateProvider);
 
 const cli = new Command();
 
@@ -39,7 +39,7 @@ cli
         try {
           postRideUseCase.handle(postRideCommand);
           console.log('ride posted!');
-          console.dir(postRideCommand);
+          console.dir(rideRepository.ride);
         } catch (e) {
           console.error(e);
         }

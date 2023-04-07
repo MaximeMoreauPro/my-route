@@ -34,6 +34,15 @@ export class PostRideUseCase {
   handle(postRideCommand: PostRideCommand) {
     const now = this.dateProvider.getNow();
 
+    this._validateData(postRideCommand, now);
+
+    this.rideRepository.save({
+      ...postRideCommand,
+      postedAt: now,
+    });
+  }
+
+  private _validateData(postRideCommand: PostRideCommand, now: Date) {
     if (postRideCommand.departureTime.getTime() <= now.getTime()) {
       throw new MyRouteError('PassedDepartureTimeError');
     }
@@ -55,10 +64,5 @@ export class PostRideUseCase {
     if (departurePlace === destinationPlace) {
       throw new MyRouteError('SameDepartureAndDestinationPlaceError');
     }
-
-    this.rideRepository.save({
-      ...postRideCommand,
-      postedAt: now,
-    });
   }
 }

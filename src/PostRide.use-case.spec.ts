@@ -165,7 +165,7 @@ const createFixture = () => {
   const dateProvider = new StubDateProvider();
   const rideRepository = new InMemoryRideRepository();
   const postRideUseCase = new PostRideUseCase(rideRepository, dateProvider);
-  let thrownError: MyRouteError;
+  let thrownError: unknown;
 
   return {
     givenNowIs(datetime: Date) {
@@ -175,9 +175,7 @@ const createFixture = () => {
       try {
         postRideUseCase.handle(postRideCommand);
       } catch (e) {
-        if (e instanceof MyRouteError) {
-          thrownError = e;
-        }
+        thrownError = e;
       }
     },
     thenPostedRideShouldBe(expectedRide: Ride) {
@@ -188,8 +186,8 @@ const createFixture = () => {
       expectedErrorMessage: string
     ) {
       expect(thrownError).toBeInstanceOf(MyRouteError);
-      expect(thrownError.code).toBe(expectedErrorCode);
-      expect(thrownError.message).toBe(expectedErrorMessage);
+      expect((thrownError as MyRouteError).code).toBe(expectedErrorCode);
+      expect((thrownError as MyRouteError).message).toBe(expectedErrorMessage);
     },
   };
 };

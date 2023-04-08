@@ -3,10 +3,10 @@
 import { Command } from 'commander';
 
 import { PostRideCommand, PostRideUseCase } from './PostRide.use-case';
-import { InMemoryRideRepository } from './RideRepository.in-memory';
 import { RealDateProvider } from './DateProvider.real';
+import { FileSystemRideRepository } from './RideRepository.fs';
 
-const rideRepository = new InMemoryRideRepository();
+const rideRepository = new FileSystemRideRepository();
 const dateProvider = new RealDateProvider();
 
 const postRideUseCase = new PostRideUseCase(rideRepository, dateProvider);
@@ -22,7 +22,7 @@ cli
       .argument('<user>', 'the current user')
       .argument('<departure-place>', 'the departure place')
       .argument('<destination-place>', 'the destination place')
-      .action((user, departurePlace, destinationPlace) => {
+      .action(async (user, departurePlace, destinationPlace) => {
         const nowTimestamp = new Date().getTime();
         const H = 1000 * 60 * 60;
         const departureTime = new Date(nowTimestamp + 1 * H);
@@ -37,9 +37,9 @@ cli
         };
 
         try {
-          postRideUseCase.handle(postRideCommand);
+          await postRideUseCase.handle(postRideCommand);
           console.log('ride posted!');
-          console.dir(rideRepository.ride);
+          console.dir(postRideCommand);
           process.exit(0);
         } catch (e) {
           console.error(e);

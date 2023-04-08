@@ -40,8 +40,10 @@ cli
           postRideUseCase.handle(postRideCommand);
           console.log('ride posted!');
           console.dir(rideRepository.ride);
+          process.exit(0);
         } catch (e) {
           console.error(e);
+          process.exit(1);
         }
       })
   );

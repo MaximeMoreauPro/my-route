@@ -18,7 +18,7 @@ export type Ride = {
 };
 
 export interface RideRepository {
-  save: (ride: Ride) => void;
+  save: (ride: Ride) => Promise<void>;
 }
 
 export interface DateProvider {
@@ -31,12 +31,12 @@ export class PostRideUseCase {
     private readonly dateProvider: DateProvider
   ) {}
 
-  handle(postRideCommand: PostRideCommand) {
+  async handle(postRideCommand: PostRideCommand) {
     const now = this.dateProvider.getNow();
 
     this._validateData(postRideCommand, now);
 
-    this.rideRepository.save({
+    await this.rideRepository.save({
       ...postRideCommand,
       postedAt: now,
     });

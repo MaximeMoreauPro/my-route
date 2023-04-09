@@ -10,10 +10,16 @@ export class ViewPersonalRidesUseCase {
 
   async handle(
     viewPersonalRidesQuery: ViewPersonalRidesQuery
-  ): Promise<Ride[]> {
+  ): Promise<Ride[] | { message: string }> {
     const userRides = await this.rideRepository.getRidesByUser(
       viewPersonalRidesQuery.user
     );
+
+    if (userRides.length === 0) {
+      return {
+        message: 'You have no ride',
+      };
+    }
 
     const ridesSortedByDepartureTime =
       this._sortRidesByDepartureTime(userRides);

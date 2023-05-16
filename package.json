@@ -33,7 +33,7 @@
     "@stryker-mutator/jest-runner": "^6.4.2",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.11",
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
     "@typescript-eslint/parser": "^5.57.1",
     "babel-jest": "^29.5.0",
     "commander": "^10.0.0",

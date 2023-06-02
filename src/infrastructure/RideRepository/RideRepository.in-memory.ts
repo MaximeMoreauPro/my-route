@@ -17,6 +17,6 @@ export class InMemoryRideRepository implements RideRepository {
   }
 
   givenTheseRidesExist(exsitingRides: Ride['data'][]): void {
-    this.rides = exsitingRides.map(ride => Ride.fromData(ride));
+    this.rides = exsitingRides;
   }
 }

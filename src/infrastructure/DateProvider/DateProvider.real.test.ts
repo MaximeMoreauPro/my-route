@@ -7,6 +7,6 @@ describe('Real DateProvider', () => {
 
   it('should return the current datetime', () => {
     const now = new RealDateProvider().getNow();
-    expect(now).toStrictEqual(new Date('2023-01-01'));
+    expect(now).toBe('2023-01-01T00:00:00.000Z');
   });
 });

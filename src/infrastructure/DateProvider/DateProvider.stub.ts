@@ -1,13 +1,13 @@
 import { DateProvider } from '../../application/DateProvider';
 
 export class StubDateProvider implements DateProvider {
-  private now!: Date;
+  private now!: string;
 
-  getNow() {
+  getNow(): string {
     return this.now;
   }
 
-  setNow(datetime: Date) {
+  setNow(datetime: string) {
     this.now = datetime;
   }
 }

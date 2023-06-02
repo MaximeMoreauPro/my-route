@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import * as path from 'path';
+
 import { Command } from 'commander';
 
 import {
@@ -11,11 +13,13 @@ import {
   ViewPersonalRidesQuery,
 } from '../application/use-cases/ViewPersonalRides.use-case';
 
-import { FileSystemRideRepository } from '../infrastructure/RideRepository/RideRepository.fs';
+import { FileSystemRideRepository } from '../infrastructure/RideRepository/RideRepository.file-system';
 import { RealDateProvider } from '../infrastructure/DateProvider/DateProvider.real';
 import { UUIDv4IdProvider } from '../infrastructure/IdProvider/IdProvider.uuidv4';
 
-const rideRepository = new FileSystemRideRepository();
+const rideRepository = new FileSystemRideRepository(
+  path.join(__dirname, 'rides.json')
+);
 const dateProvider = new RealDateProvider();
 const idProvider = new UUIDv4IdProvider();
 
@@ -39,8 +43,8 @@ cli
       .action(async (user, departurePlace, destinationPlace) => {
         const nowTimestamp = new Date().getTime();
         const H = 1000 * 60 * 60;
-        const departureTime = new Date(nowTimestamp + 1 * H);
-        const destinationTime = new Date(nowTimestamp + 2 * H);
+        const departureTime = new Date(nowTimestamp + 1 * H).toISOString();
+        const destinationTime = new Date(nowTimestamp + 2 * H).toISOString();
 
         const postRideCommand: PostRideCommand = {
           driver: user,

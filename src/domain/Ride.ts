@@ -16,17 +16,19 @@ export class Ride extends Entity {
   }
 
   static fromData(data: Ride['data']) {
-    checkPassedDepartureTime(data.departureTime, data.postedAt);
+    const departureTime = new Date(data.departureTime);
+    const destinationTime = new Date(data.destinationTime);
+    const postedAt = new Date(data.postedAt);
 
-    checkDepartureTimeAfterDestinationTime(
-      data.destinationTime,
-      data.departureTime
-    );
+    checkPassedDepartureTime(departureTime, postedAt);
+
+    checkDepartureTimeAfterDestinationTime(destinationTime, departureTime);
 
     const trimedDeparturePlace = data.departurePlace.trim();
     const trimedDestinationPlace = data.destinationPlace.trim();
 
-    checkEmptyPlace(trimedDeparturePlace, trimedDestinationPlace);
+    checkEmptyPlace(trimedDeparturePlace);
+    checkEmptyPlace(trimedDestinationPlace);
 
     checkSameDepartureAndDestinationPlace(
       trimedDeparturePlace,
@@ -37,10 +39,10 @@ export class Ride extends Entity {
       data.id,
       data.driver,
       trimedDeparturePlace,
-      data.departureTime,
+      departureTime,
       trimedDestinationPlace,
-      data.destinationTime,
-      data.postedAt
+      destinationTime,
+      postedAt
     );
   }
 
@@ -49,10 +51,10 @@ export class Ride extends Entity {
       id: this.id,
       driver: this.driver,
       departurePlace: this.departurePlace,
-      departureTime: this.departureTime,
+      departureTime: this.departureTime.toISOString(),
       destinationPlace: this.destinationPlace,
-      destinationTime: this.destinationTime,
-      postedAt: this.postedAt,
+      destinationTime: this.destinationTime.toISOString(),
+      postedAt: this.postedAt.toISOString(),
     };
   }
 
@@ -96,8 +98,8 @@ function checkDepartureTimeAfterDestinationTime(
   }
 }
 
-function checkEmptyPlace(departurePlace: string, destinationPlace: string) {
-  if (departurePlace.length === 0 || destinationPlace.length === 0) {
+function checkEmptyPlace(place: string) {
+  if (place.length === 0) {
     throw new MyRouteError('EmptyPlaceError');
   }
 }

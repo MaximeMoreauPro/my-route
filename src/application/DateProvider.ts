@@ -1,3 +1,4 @@
 export interface DateProvider {
-  getNow: () => Date;
+  /** Return the current datetime in ISO format */
+  getNow: () => string;
 }

@@ -9,3 +9,5 @@ coverage
 # stryker temp files
 .stryker-tmp
 reports/mutation
+
+*-test.json

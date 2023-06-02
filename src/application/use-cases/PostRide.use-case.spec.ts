@@ -13,37 +13,37 @@ describe('Feature: post a ride', () => {
   });
 
   test('Alex can post a ride', async () => {
-    fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+    fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
     await fixture.whenUserPostRide({
       driver: 'Alex',
       departurePlace: 'London',
-      departureTime: new Date('2023-01-01T12:30:00.000Z'),
+      departureTime: '2023-01-01T12:30:00.000Z',
       destinationPlace: 'Brighton',
-      destinationTime: new Date('2023-01-01T14:30:00.000Z'),
+      destinationTime: '2023-01-01T14:30:00.000Z',
     });
 
     fixture.thenPostedRideShouldBe({
       id: fixture.getIdByIndex(0),
       driver: 'Alex',
       departurePlace: 'London',
-      departureTime: new Date('2023-01-01T12:30:00.000Z'),
+      departureTime: '2023-01-01T12:30:00.000Z',
       destinationPlace: 'Brighton',
-      destinationTime: new Date('2023-01-01T14:30:00.000Z'),
-      postedAt: new Date('2023-01-01T08:00:00.000Z'),
+      destinationTime: '2023-01-01T14:30:00.000Z',
+      postedAt: '2023-01-01T08:00:00.000Z',
     });
   });
 
   describe('Rule: the departure time must be before the destination time', () => {
     test('Alex cannot post a ride with the same departure and arrival time', async () => {
-      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+      fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
         driver: 'Alex',
         departurePlace: 'London',
-        departureTime: new Date('2023-01-01T12:30:00.000Z'),
+        departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: 'Brighton',
-        destinationTime: new Date('2023-01-01T12:30:00.000Z'),
+        destinationTime: '2023-01-01T12:30:00.000Z',
       });
 
       fixture.thenErrorShouldBe(
@@ -53,14 +53,14 @@ describe('Feature: post a ride', () => {
     });
 
     test('Alex cannot post a ride with the departure time after the arrival time', async () => {
-      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+      fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
         driver: 'Alex',
         departurePlace: 'London',
-        departureTime: new Date('2023-01-01T12:30:00.000Z'),
+        departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: 'Brighton',
-        destinationTime: new Date('2023-01-01T11:30:00.000Z'),
+        destinationTime: '2023-01-01T11:30:00.000Z',
       });
 
       fixture.thenErrorShouldBe(
@@ -72,14 +72,14 @@ describe('Feature: post a ride', () => {
 
   describe('Rule: the departure time must be in the future', () => {
     test('Alex cannot post a ride with the departure time in the past', async () => {
-      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+      fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
         driver: 'Alex',
         departurePlace: 'London',
-        departureTime: new Date('2023-01-01T07:30:00.000Z'),
+        departureTime: '2023-01-01T07:30:00.000Z',
         destinationPlace: 'Brighton',
-        destinationTime: new Date('2023-01-01T11:30:00.000Z'),
+        destinationTime: '2023-01-01T11:30:00.000Z',
       });
 
       fixture.thenErrorShouldBe(
@@ -89,14 +89,14 @@ describe('Feature: post a ride', () => {
     });
 
     test('Alex cannot post a ride with the departure time set at the current time', async () => {
-      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+      fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
         driver: 'Alex',
         departurePlace: 'London',
-        departureTime: new Date('2023-01-01T08:00:00.000Z'),
+        departureTime: '2023-01-01T08:00:00.000Z',
         destinationPlace: 'Brighton',
-        destinationTime: new Date('2023-01-01T11:30:00.000Z'),
+        destinationTime: '2023-01-01T11:30:00.000Z',
       });
 
       fixture.thenErrorShouldBe(
@@ -108,14 +108,14 @@ describe('Feature: post a ride', () => {
 
   describe('Rule: the place must not be empty', () => {
     test('Alex cannot post a ride with an empty departure place', async () => {
-      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+      fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
         driver: 'Alex',
         departurePlace: '   ',
-        departureTime: new Date('2023-01-01T12:30:00.000Z'),
+        departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: 'Brighton',
-        destinationTime: new Date('2023-01-01T14:30:00.000Z'),
+        destinationTime: '2023-01-01T14:30:00.000Z',
       });
 
       fixture.thenErrorShouldBe(
@@ -125,14 +125,14 @@ describe('Feature: post a ride', () => {
     });
 
     test('Alex cannot post a ride with an empty destination place', async () => {
-      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+      fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
         driver: 'Alex',
         departurePlace: 'London',
-        departureTime: new Date('2023-01-01T12:30:00.000Z'),
+        departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: '   ',
-        destinationTime: new Date('2023-01-01T14:30:00.000Z'),
+        destinationTime: '2023-01-01T14:30:00.000Z',
       });
 
       fixture.thenErrorShouldBe(
@@ -144,14 +144,14 @@ describe('Feature: post a ride', () => {
 
   describe('Rule: the departure and destination places must be different', () => {
     test('Alex cannot post a ride the same departure and destination place', async () => {
-      fixture.givenNowIs(new Date('2023-01-01T08:00:00.000Z'));
+      fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
         driver: 'Alex',
         departurePlace: 'London',
-        departureTime: new Date('2023-01-01T12:30:00.000Z'),
+        departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: 'London',
-        destinationTime: new Date('2023-01-01T14:30:00.000Z'),
+        destinationTime: '2023-01-01T14:30:00.000Z',
       });
 
       fixture.thenErrorShouldBe(
@@ -176,7 +176,7 @@ const createFixture = () => {
   let thrownError: unknown;
 
   return {
-    givenNowIs(datetime: Date) {
+    givenNowIs(datetime: string) {
       dateProvider.setNow(datetime);
     },
     async whenUserPostRide(postRideCommand: PostRideCommand) {

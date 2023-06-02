@@ -1,8 +1,9 @@
 import { Ride } from '../../domain/Ride';
+import { User } from '../../domain/User';
 import { RideRepository } from '../RideRepository';
 
 export type ViewPersonalRidesQuery = {
-  user: string;
+  user: User;
 };
 
 export class ViewPersonalRidesUseCase {

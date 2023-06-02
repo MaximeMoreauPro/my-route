@@ -179,8 +179,8 @@ const createFixture = () => {
         thrownError = e;
       }
     },
-    thenPostedRideShouldBe(expectedRide: Ride) {
-      expect(expectedRide).toEqual(rideRepository.rides[0]);
+    thenPostedRideShouldBe(expectedRide: Ride['data']) {
+      expect(expectedRide).toEqual(rideRepository.rides[0].data);
     },
     thenErrorShouldBe(
       expectedErrorCode: MyRouteErrorCode,

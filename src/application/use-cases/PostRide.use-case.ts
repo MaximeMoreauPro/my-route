@@ -1,4 +1,3 @@
-import { MyRouteError } from '../../MyRouteError';
 import { Ride } from '../../domain/Ride';
 import { DateProvider } from '../DateProvider';
 import { RideRepository } from '../RideRepository';
@@ -14,42 +13,16 @@ export type PostRideCommand = Pick<
 
 export class PostRideUseCase {
   constructor(
-    private readonly rideRepository: RideRepository,
-    private readonly dateProvider: DateProvider
+    private readonly _rideRepository: RideRepository,
+    private readonly _dateProvider: DateProvider
   ) {}
 
   async handle(postRideCommand: PostRideCommand) {
-    const now = this.dateProvider.getNow();
-
-    this._validateData(postRideCommand, now);
-
-    await this.rideRepository.save({
+    const ride = Ride.fromData({
       ...postRideCommand,
-      postedAt: now,
+      postedAt: this._dateProvider.getNow(),
     });
-  }
 
-  private _validateData(postRideCommand: PostRideCommand, now: Date) {
-    if (postRideCommand.departureTime.getTime() <= now.getTime()) {
-      throw new MyRouteError('PassedDepartureTimeError');
-    }
-
-    if (
-      postRideCommand.destinationTime.getTime() <=
-      postRideCommand.departureTime.getTime()
-    ) {
-      throw new MyRouteError('DepartureTimeAfterDestinationTimeError');
-    }
-
-    const departurePlace = postRideCommand.departurePlace.trim();
-    const destinationPlace = postRideCommand.destinationPlace.trim();
-
-    if (departurePlace.length === 0 || destinationPlace.length === 0) {
-      throw new MyRouteError('EmptyPlaceError');
-    }
-
-    if (departurePlace === destinationPlace) {
-      throw new MyRouteError('SameDepartureAndDestinationPlaceError');
-    }
+    await this._rideRepository.save(ride);
   }
 }

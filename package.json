@@ -2,7 +2,7 @@
   "name": "my-route",
   "version": "0.0.1",
   "description": "My Route app and admin - Monorepo with web and mobile frontend and backend",
-  "main": "dist/index.js",
+  "main": "dist/apps/cli.js",
   "scripts": {
     "build": "tsc",
     "code:format": "prettier src",
@@ -13,7 +13,7 @@
     "test:mutation": "stryker run"
   },
   "bin": {
-    "my-route": "dist/index.js"
+    "my-route": "dist/apps/cli.js"
   },
   "repository": {
     "type": "git",

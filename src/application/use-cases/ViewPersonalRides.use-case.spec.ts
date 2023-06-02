@@ -1,4 +1,4 @@
-import { InMemoryRideRepository } from '../../RideRepository.in-memory';
+import { InMemoryRideRepository } from '../../infrastructure/RideRepository/RideRepository.in-memory';
 import { Ride } from '../../domain/Ride';
 import {
   ViewPersonalRidesUseCase,

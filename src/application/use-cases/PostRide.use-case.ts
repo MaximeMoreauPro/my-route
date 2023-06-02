@@ -1,5 +1,6 @@
 import { MyRouteError } from '../../MyRouteError';
 import { Ride } from '../../domain/Ride';
+import { DateProvider } from '../DateProvider';
 import { RideRepository } from '../RideRepository';
 
 export type PostRideCommand = Pick<
@@ -10,10 +11,6 @@ export type PostRideCommand = Pick<
   | 'destinationPlace'
   | 'destinationTime'
 >;
-
-export interface DateProvider {
-  getNow: () => Date;
-}
 
 export class PostRideUseCase {
   constructor(

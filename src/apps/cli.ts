@@ -5,14 +5,14 @@ import { Command } from 'commander';
 import {
   PostRideCommand,
   PostRideUseCase,
-} from './application/use-cases/PostRide.use-case';
+} from '../application/use-cases/PostRide.use-case';
 import {
   ViewPersonalRidesUseCase,
   ViewPersonalRidesQuery,
-} from './application/use-cases/ViewPersonalRides.use-case';
+} from '../application/use-cases/ViewPersonalRides.use-case';
 
-import { RealDateProvider } from './DateProvider.real';
-import { FileSystemRideRepository } from './RideRepository.fs';
+import { FileSystemRideRepository } from '../infrastructure/RideRepository/RideRepository.fs';
+import { RealDateProvider } from '../infrastructure/DateProvider/DateProvider.real';
 
 const rideRepository = new FileSystemRideRepository();
 const dateProvider = new RealDateProvider();

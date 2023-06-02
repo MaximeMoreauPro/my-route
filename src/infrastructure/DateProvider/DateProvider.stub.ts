@@ -1,4 +1,4 @@
-import { DateProvider } from './application/use-cases/PostRide.use-case';
+import { DateProvider } from '../../application/DateProvider';
 
 export class StubDateProvider implements DateProvider {
   private now!: Date;

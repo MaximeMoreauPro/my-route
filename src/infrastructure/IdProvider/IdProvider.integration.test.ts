@@ -23,10 +23,20 @@ function runIdProviderTests(
 
     it('should generate a valid UUID v4', () => {
       expect(isValidUUIDv4(idProvider.getId())).toBe(true);
+      expect(isValidUUIDv4(idProvider.getId())).toBe(true);
+      expect(isValidUUIDv4(idProvider.getId())).toBe(true);
+      expect(isValidUUIDv4(idProvider.getId())).toBe(true);
     });
 
     it('should generate unique UUIDs', () => {
-      expect(idProvider.getId()).not.toBe(idProvider.getId());
+      expect(
+        containesDuplicatedValues([
+          idProvider.getId(),
+          idProvider.getId(),
+          idProvider.getId(),
+          idProvider.getId(),
+        ])
+      ).toBe(false);
     });
 
     if (idProviderName === 'FakeIdProvider') {
@@ -50,4 +60,8 @@ function runIdProviderTests(
 
 function isValidUUIDv4(uuid: string): boolean {
   return validate(uuid) && version(uuid) === 4;
+}
+
+function containesDuplicatedValues(stringValues: string[]) {
+  return new Set(stringValues).size !== stringValues.length;
 }

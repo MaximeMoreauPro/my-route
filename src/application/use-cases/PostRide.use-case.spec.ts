@@ -24,7 +24,7 @@ describe('Feature: post a ride', () => {
     });
 
     fixture.thenPostedRideShouldBe({
-      id: '1',
+      id: fixture.getIdByIndex(0),
       driver: 'Alex',
       departurePlace: 'London',
       departureTime: new Date('2023-01-01T12:30:00.000Z'),
@@ -196,6 +196,9 @@ const createFixture = () => {
       expect(thrownError).toBeInstanceOf(MyRouteError);
       expect((thrownError as MyRouteError).code).toBe(expectedErrorCode);
       expect((thrownError as MyRouteError).message).toBe(expectedErrorMessage);
+    },
+    getIdByIndex(index: number): string {
+      return idProvider.getIdByIndex(index);
     },
   };
 };

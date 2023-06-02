@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 import { RideRepository } from './RideRepository';
-import { Ride } from './Ride';
+import { Ride } from './domain/Ride';
 
 const RIDE_FILE = path.join(__dirname, 'ride.json');
 export class FileSystemRideRepository implements RideRepository {

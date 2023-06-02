@@ -1,5 +1,5 @@
 import { MyRouteError } from './MyRouteError';
-import { Ride } from './Ride';
+import { Ride } from './domain/Ride';
 import { RideRepository } from './RideRepository';
 
 export type PostRideCommand = Pick<

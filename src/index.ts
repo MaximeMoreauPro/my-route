@@ -2,7 +2,10 @@
 
 import { Command } from 'commander';
 
-import { PostRideCommand, PostRideUseCase } from './PostRide.use-case';
+import {
+  PostRideCommand,
+  PostRideUseCase,
+} from './application/use-cases/PostRide.use-case';
 import { ViewPersonalRidesUseCase } from './ViewPersonalRides.use-case';
 
 import { RealDateProvider } from './DateProvider.real';

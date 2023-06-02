@@ -1,8 +1,8 @@
 import { PostRideCommand, PostRideUseCase } from './PostRide.use-case';
-import { Ride } from './domain/Ride';
-import { InMemoryRideRepository } from './RideRepository.in-memory';
-import { StubDateProvider } from './DateProvider.stub';
-import { MyRouteError, MyRouteErrorCode } from './MyRouteError';
+import { Ride } from '../../domain/Ride';
+import { InMemoryRideRepository } from '../../RideRepository.in-memory';
+import { StubDateProvider } from '../../DateProvider.stub';
+import { MyRouteError, MyRouteErrorCode } from '../../MyRouteError';
 
 describe('Feature: post a ride', () => {
   let fixture: Fixture;

@@ -1,5 +1,5 @@
-import { Ride } from './domain/Ride';
-import { RideRepository } from './application/use-cases/RideRepository';
+import { Ride } from '../../domain/Ride';
+import { RideRepository } from '../RideRepository';
 
 export type ViewPersonalRidesQuery = {
   user: string;

@@ -6,11 +6,13 @@ import {
   PostRideCommand,
   PostRideUseCase,
 } from './application/use-cases/PostRide.use-case';
-import { ViewPersonalRidesUseCase } from './ViewPersonalRides.use-case';
+import {
+  ViewPersonalRidesUseCase,
+  ViewPersonalRidesQuery,
+} from './application/use-cases/ViewPersonalRides.use-case';
 
 import { RealDateProvider } from './DateProvider.real';
 import { FileSystemRideRepository } from './RideRepository.fs';
-import { ViewPersonalRidesQuery } from './ViewPersonalRides.use-case';
 
 const rideRepository = new FileSystemRideRepository();
 const dateProvider = new RealDateProvider();

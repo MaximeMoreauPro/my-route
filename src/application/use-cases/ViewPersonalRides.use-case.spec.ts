@@ -1,9 +1,9 @@
+import { InMemoryRideRepository } from '../../RideRepository.in-memory';
+import { Ride } from '../../domain/Ride';
 import {
   ViewPersonalRidesUseCase,
   ViewPersonalRidesQuery,
 } from './ViewPersonalRides.use-case';
-import { InMemoryRideRepository } from './RideRepository.in-memory';
-import { Ride } from './domain/Ride';
 
 describe('Feature: view personal rides', () => {
   let fixture: Fixture;

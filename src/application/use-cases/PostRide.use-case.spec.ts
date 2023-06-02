@@ -3,6 +3,7 @@ import { Ride } from '../../domain/Ride';
 import { MyRouteError, MyRouteErrorCode } from '../../MyRouteError';
 import { StubDateProvider } from '../../infrastructure/DateProvider/DateProvider.stub';
 import { InMemoryRideRepository } from '../../infrastructure/RideRepository/RideRepository.in-memory';
+import { FakeIdProvider } from '../../infrastructure/IdProvider/IdProvider.fake';
 
 describe('Feature: post a ride', () => {
   let fixture: Fixture;
@@ -23,6 +24,7 @@ describe('Feature: post a ride', () => {
     });
 
     fixture.thenPostedRideShouldBe({
+      id: '1',
       driver: 'Alex',
       departurePlace: 'London',
       departureTime: new Date('2023-01-01T12:30:00.000Z'),
@@ -165,7 +167,12 @@ type Fixture = ReturnType<typeof createFixture>;
 const createFixture = () => {
   const dateProvider = new StubDateProvider();
   const rideRepository = new InMemoryRideRepository();
-  const postRideUseCase = new PostRideUseCase(rideRepository, dateProvider);
+  const idProvider = new FakeIdProvider();
+  const postRideUseCase = new PostRideUseCase(
+    rideRepository,
+    dateProvider,
+    idProvider
+  );
   let thrownError: unknown;
 
   return {
@@ -180,7 +187,7 @@ const createFixture = () => {
       }
     },
     thenPostedRideShouldBe(expectedRide: Ride['data']) {
-      expect(expectedRide).toEqual(rideRepository.rides[0].data);
+      expect(expectedRide).toEqual(rideRepository.rides[0]);
     },
     thenErrorShouldBe(
       expectedErrorCode: MyRouteErrorCode,

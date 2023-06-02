@@ -13,11 +13,17 @@ import {
 
 import { FileSystemRideRepository } from '../infrastructure/RideRepository/RideRepository.fs';
 import { RealDateProvider } from '../infrastructure/DateProvider/DateProvider.real';
+import { UUIDv4IdProvider } from '../infrastructure/IdProvider/IdProvider.uuidv4';
 
 const rideRepository = new FileSystemRideRepository();
 const dateProvider = new RealDateProvider();
+const idProvider = new UUIDv4IdProvider();
 
-const postRideUseCase = new PostRideUseCase(rideRepository, dateProvider);
+const postRideUseCase = new PostRideUseCase(
+  rideRepository,
+  dateProvider,
+  idProvider
+);
 const viewPersonalRidesUseCase = new ViewPersonalRidesUseCase(rideRepository);
 const cli = new Command();
 

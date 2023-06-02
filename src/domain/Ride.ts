@@ -1,15 +1,19 @@
 import { MyRouteError } from '../MyRouteError';
+import { Entity } from './Entity';
 import { User } from './User';
 
-export class Ride {
+export class Ride extends Entity {
   private constructor(
+    id: string,
     private readonly _driver: User,
     private readonly _departurePlace: string,
     private readonly _departureTime: Date,
     private readonly _destinationPlace: string,
     private readonly _destinationTime: Date,
     private readonly _postedAt: Date
-  ) {}
+  ) {
+    super(id);
+  }
 
   static fromData(data: Ride['data']) {
     checkPassedDepartureTime(data.departureTime, data.postedAt);
@@ -30,6 +34,7 @@ export class Ride {
     );
 
     return new Ride(
+      data.id,
       data.driver,
       trimedDeparturePlace,
       data.departureTime,
@@ -41,6 +46,7 @@ export class Ride {
 
   get data() {
     return {
+      id: this.id,
       driver: this.driver,
       departurePlace: this.departurePlace,
       departureTime: this.departureTime,

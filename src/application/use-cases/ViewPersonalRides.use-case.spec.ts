@@ -16,6 +16,7 @@ describe('Feature: view personal rides', () => {
     test('Alex can view his 3 personal rides', async () => {
       fixture.givenTheseRidesExist([
         {
+          id: '1',
           driver: 'Alex',
           departurePlace: 'London',
           departureTime: new Date('2023-01-01T12:30:00.000Z'),
@@ -24,6 +25,7 @@ describe('Feature: view personal rides', () => {
           postedAt: new Date('2023-01-01T08:30:00.000Z'),
         },
         {
+          id: '2',
           driver: 'Zoe',
           departurePlace: 'Manchester',
           departureTime: new Date('2023-01-01T10:30:00.000Z'),
@@ -32,6 +34,7 @@ describe('Feature: view personal rides', () => {
           postedAt: new Date('2023-01-01T09:30:00.000Z'),
         },
         {
+          id: '3',
           driver: 'Alex',
           departurePlace: 'Brighton',
           departureTime: new Date('2022-12-01T12:30:00.000Z'),
@@ -40,6 +43,7 @@ describe('Feature: view personal rides', () => {
           postedAt: new Date('2022-12-01T08:30:00.000Z'),
         },
         {
+          id: '4',
           driver: 'Alex',
           departurePlace: 'London',
           departureTime: new Date('2023-02-01T12:30:00.000Z'),
@@ -53,6 +57,7 @@ describe('Feature: view personal rides', () => {
 
       fixture.thenDisplayedRidesShouldBe([
         {
+          id: '3',
           driver: 'Alex',
           departurePlace: 'Brighton',
           departureTime: new Date('2022-12-01T12:30:00.000Z'),
@@ -61,6 +66,7 @@ describe('Feature: view personal rides', () => {
           postedAt: new Date('2022-12-01T08:30:00.000Z'),
         },
         {
+          id: '1',
           driver: 'Alex',
           departurePlace: 'London',
           departureTime: new Date('2023-01-01T12:30:00.000Z'),
@@ -69,6 +75,7 @@ describe('Feature: view personal rides', () => {
           postedAt: new Date('2023-01-01T08:30:00.000Z'),
         },
         {
+          id: '4',
           driver: 'Alex',
           departurePlace: 'London',
           departureTime: new Date('2023-02-01T12:30:00.000Z'),
@@ -84,6 +91,7 @@ describe('Feature: view personal rides', () => {
     test('Tom can view the message "You have no ride"', async () => {
       fixture.givenTheseRidesExist([
         {
+          id: '1',
           driver: 'Alex',
           departurePlace: 'London',
           departureTime: new Date('2023-01-01T12:30:00.000Z'),
@@ -92,6 +100,7 @@ describe('Feature: view personal rides', () => {
           postedAt: new Date('2023-01-01T08:30:00.000Z'),
         },
         {
+          id: '2',
           driver: 'Zoe',
           departurePlace: 'Manchester',
           departureTime: new Date('2023-01-01T10:30:00.000Z'),
@@ -100,6 +109,7 @@ describe('Feature: view personal rides', () => {
           postedAt: new Date('2023-01-01T09:30:00.000Z'),
         },
         {
+          id: '3',
           driver: 'Alex',
           departurePlace: 'Brighton',
           departureTime: new Date('2022-12-01T12:30:00.000Z'),
@@ -108,6 +118,7 @@ describe('Feature: view personal rides', () => {
           postedAt: new Date('2022-12-01T08:30:00.000Z'),
         },
         {
+          id: '4',
           driver: 'Alex',
           departurePlace: 'London',
           departureTime: new Date('2023-02-01T12:30:00.000Z'),
@@ -133,7 +144,7 @@ const createFixture = () => {
   let message: string;
 
   return {
-    async givenTheseRidesExist(existingRides: Ride[]) {
+    async givenTheseRidesExist(existingRides: Ride['data'][]) {
       rideRepository.givenTheseRidesExist(existingRides);
     },
     async whenUserViewTheirPersonalRides(
@@ -147,8 +158,8 @@ const createFixture = () => {
         message = viewPersonalRidesQueryResult.message;
       }
     },
-    thenDisplayedRidesShouldBe(expectedRides: Ride[]) {
-      expect(personalRides).toEqual(expectedRides);
+    thenDisplayedRidesShouldBe(expectedRides: Ride['data'][]) {
+      expect(personalRides.map(ride => ride.data)).toEqual(expectedRides);
     },
     thenDisplayedMessageShouldBe(expectedMessage: string) {
       expect(message).toEqual(expectedMessage);

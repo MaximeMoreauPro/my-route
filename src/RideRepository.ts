@@ -1,4 +1,4 @@
-import { Ride } from './PostRide.use-case';
+import { Ride } from './Ride';
 
 export interface RideRepository {
   save: (ride: Ride) => Promise<void>;

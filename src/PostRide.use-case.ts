@@ -1,25 +1,15 @@
 import { MyRouteError } from './MyRouteError';
+import { Ride } from './Ride';
+import { RideRepository } from './RideRepository';
 
-export type PostRideCommand = {
-  driver: string;
-  departurePlace: string;
-  departureTime: Date;
-  destinationPlace: string;
-  destinationTime: Date;
-};
-
-export type Ride = {
-  driver: string;
-  departurePlace: string;
-  departureTime: Date;
-  destinationPlace: string;
-  destinationTime: Date;
-  postedAt: Date;
-};
-
-export interface RideRepository {
-  save: (ride: Ride) => Promise<void>;
-}
+export type PostRideCommand = Pick<
+  Ride,
+  | 'driver'
+  | 'departurePlace'
+  | 'departureTime'
+  | 'destinationPlace'
+  | 'destinationTime'
+>;
 
 export interface DateProvider {
   getNow: () => Date;

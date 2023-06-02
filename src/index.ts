@@ -3,14 +3,17 @@
 import { Command } from 'commander';
 
 import { PostRideCommand, PostRideUseCase } from './PostRide.use-case';
+import { ViewPersonalRidesUseCase } from './ViewPersonalRides.use-case';
+
 import { RealDateProvider } from './DateProvider.real';
 import { FileSystemRideRepository } from './RideRepository.fs';
+import { ViewPersonalRidesQuery } from './ViewPersonalRides.use-case';
 
 const rideRepository = new FileSystemRideRepository();
 const dateProvider = new RealDateProvider();
 
 const postRideUseCase = new PostRideUseCase(rideRepository, dateProvider);
-
+const viewPersonalRidesUseCase = new ViewPersonalRidesUseCase(rideRepository);
 const cli = new Command();
 
 cli
@@ -40,6 +43,28 @@ cli
           await postRideUseCase.handle(postRideCommand);
           console.log('ride posted!');
           console.dir(postRideCommand);
+          process.exit(0);
+        } catch (e) {
+          console.error(e);
+          process.exit(1);
+        }
+      })
+  )
+  .addCommand(
+    new Command('view-personal-rides')
+      .description('view personal rides')
+      .argument('<user>', 'the current user')
+      .action(async user => {
+        const viewPersonalRidesQuery: ViewPersonalRidesQuery = {
+          user,
+        };
+
+        try {
+          const rides = await viewPersonalRidesUseCase.handle(
+            viewPersonalRidesQuery
+          );
+          console.log('Your rides are:');
+          console.dir(rides);
           process.exit(0);
         } catch (e) {
           console.error(e);

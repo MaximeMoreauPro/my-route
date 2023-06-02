@@ -1,4 +1,4 @@
-import { Ride } from './PostRide.use-case';
+import { Ride } from './Ride';
 import { RideRepository } from './RideRepository';
 
 export type ViewPersonalRidesQuery = {

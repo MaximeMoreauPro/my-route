@@ -1,4 +1,5 @@
-import { PostRideCommand, PostRideUseCase, Ride } from './PostRide.use-case';
+import { PostRideCommand, PostRideUseCase } from './PostRide.use-case';
+import { Ride } from './Ride';
 import { InMemoryRideRepository } from './RideRepository.in-memory';
 import { StubDateProvider } from './DateProvider.stub';
 import { MyRouteError, MyRouteErrorCode } from './MyRouteError';

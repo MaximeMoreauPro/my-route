@@ -1,9 +1,9 @@
-import { Ride } from './PostRide.use-case';
 import {
   ViewPersonalRidesUseCase,
   ViewPersonalRidesQuery,
 } from './ViewPersonalRides.use-case';
 import { InMemoryRideRepository } from './RideRepository.in-memory';
+import { Ride } from './Ride';
 
 describe('Feature: view personal rides', () => {
   let fixture: Fixture;

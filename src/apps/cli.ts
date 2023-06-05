@@ -9,9 +9,9 @@ import {
   PostRideUseCase,
 } from '../application/use-cases/PostRide.use-case';
 import {
-  ViewPersonalRidesUseCase,
-  ViewPersonalRidesQuery,
-} from '../application/use-cases/ViewPersonalRides.use-case';
+  ViewUserRidesUseCase,
+  ViewUserRidesQuery,
+} from '../application/use-cases/ViewUserRides.use-case';
 
 import { FileSystemRideRepository } from '../infrastructure/RideRepository/RideRepository.file-system';
 import { RealDateProvider } from '../infrastructure/DateProvider/DateProvider.real';
@@ -28,7 +28,7 @@ const postRideUseCase = new PostRideUseCase(
   dateProvider,
   idProvider
 );
-const viewPersonalRidesUseCase = new ViewPersonalRidesUseCase(rideRepository);
+const viewUserRidesUseCase = new ViewUserRidesUseCase(rideRepository);
 const cli = new Command();
 
 cli
@@ -66,19 +66,17 @@ cli
       })
   )
   .addCommand(
-    new Command('view-personal-rides')
-      .description('view personal rides')
-      .argument('<user>', 'the current user')
+    new Command('view-user-rides')
+      .description('view user rides')
+      .argument('<user>', 'the user to view the rides of')
       .action(async user => {
-        const viewPersonalRidesQuery: ViewPersonalRidesQuery = {
+        const viewUserRidesQuery: ViewUserRidesQuery = {
           user,
         };
 
         try {
-          const rides = await viewPersonalRidesUseCase.handle(
-            viewPersonalRidesQuery
-          );
-          console.log('Your rides are:');
+          const rides = await viewUserRidesUseCase.handle(viewUserRidesQuery);
+          console.log(`The ${user}'s rides are:`);
           console.dir(rides);
           process.exit(0);
         } catch (e) {

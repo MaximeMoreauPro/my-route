@@ -2,23 +2,23 @@ import { Ride } from '../../domain/Ride';
 import { User } from '../../domain/User';
 import { RideRepository } from '../RideRepository';
 
-export type ViewPersonalRidesQuery = {
+export type ViewUserRidesQuery = {
   user: User;
 };
 
-export class ViewPersonalRidesUseCase {
+export class ViewUserRidesUseCase {
   constructor(private readonly rideRepository: RideRepository) {}
 
   async handle(
-    viewPersonalRidesQuery: ViewPersonalRidesQuery
+    viewUserRidesQuery: ViewUserRidesQuery
   ): Promise<Ride[] | { message: string }> {
     const userRides = await this.rideRepository.getRidesByUser(
-      viewPersonalRidesQuery.user
+      viewUserRidesQuery.user
     );
 
     if (userRides.length === 0) {
       return {
-        message: 'You have no ride',
+        message: 'There is no ride',
       };
     }
 

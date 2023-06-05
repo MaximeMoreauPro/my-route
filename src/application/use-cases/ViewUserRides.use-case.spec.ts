@@ -1,11 +1,11 @@
 import { InMemoryRideRepository } from '../../infrastructure/RideRepository/RideRepository.in-memory';
 import { Ride } from '../../domain/Ride';
 import {
-  ViewPersonalRidesUseCase,
-  ViewPersonalRidesQuery,
-} from './ViewPersonalRides.use-case';
+  ViewUserRidesUseCase,
+  ViewUserRidesQuery,
+} from './ViewUserRides.use-case';
 
-describe('Feature: view personal rides', () => {
+describe('Feature: view user rides', () => {
   let fixture: Fixture;
 
   beforeEach(() => {
@@ -13,7 +13,7 @@ describe('Feature: view personal rides', () => {
   });
 
   describe('Rule: the rides are displayed by departure date and time in chronological order', () => {
-    test('Alex can view his 3 personal rides', async () => {
+    test("A user can view the 3 Alex's rides", async () => {
       fixture.givenTheseRidesExist([
         {
           id: '1',
@@ -53,7 +53,7 @@ describe('Feature: view personal rides', () => {
         },
       ]);
 
-      await fixture.whenUserViewTheirPersonalRides({ user: 'Alex' });
+      await fixture.whenViewUserRides({ user: 'Alex' });
 
       fixture.thenDisplayedRidesShouldBe([
         {
@@ -128,9 +128,9 @@ describe('Feature: view personal rides', () => {
         },
       ]);
 
-      await fixture.whenUserViewTheirPersonalRides({ user: 'Tom' });
+      await fixture.whenViewUserRides({ user: 'Tom' });
 
-      fixture.thenDisplayedMessageShouldBe('You have no ride');
+      fixture.thenDisplayedMessageShouldBe('There is no ride');
     });
   });
 });
@@ -139,27 +139,26 @@ type Fixture = ReturnType<typeof createFixture>;
 
 const createFixture = () => {
   const rideRepository = new InMemoryRideRepository();
-  const viewPersonalRidesUseCase = new ViewPersonalRidesUseCase(rideRepository);
-  let personalRides: Ride[];
+  const viewUserRidesUseCase = new ViewUserRidesUseCase(rideRepository);
+  let userRides: Ride[];
   let message: string;
 
   return {
     async givenTheseRidesExist(existingRides: Ride['data'][]) {
       rideRepository.givenTheseRidesExist(existingRides);
     },
-    async whenUserViewTheirPersonalRides(
-      viewPersonalRidesQuery: ViewPersonalRidesQuery
-    ) {
-      const viewPersonalRidesQueryResult =
-        await viewPersonalRidesUseCase.handle(viewPersonalRidesQuery);
-      if (viewPersonalRidesQueryResult instanceof Array) {
-        personalRides = viewPersonalRidesQueryResult;
+    async whenViewUserRides(viewUserRidesQuery: ViewUserRidesQuery) {
+      const viewUserRidesQueryResult = await viewUserRidesUseCase.handle(
+        viewUserRidesQuery
+      );
+      if (viewUserRidesQueryResult instanceof Array) {
+        userRides = viewUserRidesQueryResult;
       } else {
-        message = viewPersonalRidesQueryResult.message;
+        message = viewUserRidesQueryResult.message;
       }
     },
     thenDisplayedRidesShouldBe(expectedRides: Ride['data'][]) {
-      expect(personalRides.map(ride => ride.data)).toEqual(expectedRides);
+      expect(userRides.map(ride => ride.data)).toEqual(expectedRides);
     },
     thenDisplayedMessageShouldBe(expectedMessage: string) {
       expect(message).toEqual(expectedMessage);

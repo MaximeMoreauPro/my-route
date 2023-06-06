@@ -6,6 +6,9 @@ import { Config } from 'jest';
  */
 
 const config: Config = {
+  // Prevent tests from printing messages through the console.
+  silent: true,
+
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -22,7 +25,7 @@ const config: Config = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: undefined,
+  collectCoverageFrom: ['src/**/*.ts', '!src/apps/cli.ts'],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
@@ -44,7 +47,14 @@ const config: Config = {
   // ],
 
   // An object that configures minimum threshold enforcement for coverage results
-  // coverageThreshold: undefined,
+  coverageThreshold: {
+    global: {
+      branches: 90,
+      functions: 90,
+      lines: 90,
+      statements: 90,
+    },
+  },
 
   // A path to a custom dependency extractor
   // dependencyExtractor: undefined,

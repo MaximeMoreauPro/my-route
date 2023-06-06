@@ -87,8 +87,8 @@ describe('Feature: view user rides', () => {
     });
   });
 
-  describe('Rule: the user is informed if he has no ride', () => {
-    test('Tom can view the message "You have no ride"', async () => {
+  describe('Rule: the user is informed if a user has no ride', () => {
+    test('Alex can view the message "There is no ride"', async () => {
       fixture.givenTheseRidesExist([
         {
           id: '1',
@@ -130,15 +130,48 @@ describe('Feature: view user rides', () => {
 
       await fixture.whenViewUserRides({ user: 'Tom' });
 
-      fixture.thenDisplayedMessageShouldBe('There is no ride');
+      fixture.thenDisplayedMessageShouldBe('Tom has no ride');
+    });
+  });
+
+  describe("Rule: the user is informed if the user's rides cannot be fetched", () => {
+    test('Alex can view the message "Tom\'s rides cannot be fetched. Please try later"', async () => {
+      fixture = createFixture({
+        rideRepository: new ErrorInMemoryRideRepository(),
+      });
+
+      fixture.givenTheseRidesExist([
+        {
+          id: '1',
+          driver: 'Tom',
+          departurePlace: 'London',
+          departureTime: '2023-01-01T12:30:00.000Z',
+          destinationPlace: 'Brighton',
+          destinationTime: '2023-01-01T14:30:00.000Z',
+          postedAt: '2023-01-01T08:30:00.000Z',
+        },
+      ]);
+
+      await fixture.whenViewUserRides({ user: 'Tom' });
+
+      fixture.thenDisplayedMessageShouldBe(
+        "Tom's rides cannot be fetched. Please try later"
+      );
     });
   });
 });
 
 type Fixture = ReturnType<typeof createFixture>;
 
-const createFixture = () => {
-  const rideRepository = new InMemoryRideRepository();
+type CreateFixtureParams = {
+  rideRepository: InMemoryRideRepository;
+};
+
+const createFixture = (
+  { rideRepository }: CreateFixtureParams = {
+    rideRepository: new InMemoryRideRepository(),
+  }
+) => {
   const viewUserRidesUseCase = new ViewUserRidesUseCase(rideRepository);
   let userRides: Ride[];
   let message: string;
@@ -165,3 +198,10 @@ const createFixture = () => {
     },
   };
 };
+
+class ErrorInMemoryRideRepository extends InMemoryRideRepository {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async getRidesByUser(user: string): Promise<Ride[]> {
+    throw new Error('getRidesByUser error for testing purpose');
+  }
+}

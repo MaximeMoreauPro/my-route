@@ -9,23 +9,28 @@ export type ViewUserRidesQuery = {
 export class ViewUserRidesUseCase {
   constructor(private readonly rideRepository: RideRepository) {}
 
-  async handle(
-    viewUserRidesQuery: ViewUserRidesQuery
-  ): Promise<Ride[] | { message: string }> {
-    const userRides = await this.rideRepository.getRidesByUser(
-      viewUserRidesQuery.user
-    );
+  async handle({
+    user,
+  }: ViewUserRidesQuery): Promise<Ride[] | { message: string }> {
+    try {
+      const userRides = await this.rideRepository.getRidesByUser(user);
 
-    if (userRides.length === 0) {
+      if (userRides.length === 0) {
+        return {
+          message: `${user} has no ride`,
+        };
+      }
+
+      const ridesSortedByDepartureTime =
+        this._sortRidesByDepartureTime(userRides);
+
+      return Promise.resolve(ridesSortedByDepartureTime);
+    } catch (e) {
+      console.error(e);
       return {
-        message: 'There is no ride',
+        message: `${user}'s rides cannot be fetched. Please try later`,
       };
     }
-
-    const ridesSortedByDepartureTime =
-      this._sortRidesByDepartureTime(userRides);
-
-    return Promise.resolve(ridesSortedByDepartureTime);
   }
 
   private _sortRidesByDepartureTime(rides: Ride[]): Ride[] {

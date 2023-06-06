@@ -17,6 +17,10 @@ jobs:
         with:
           node-version: 18.16.0
           cache: 'yarn'
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - run: yarn install --frozen-lockfile
       - run: yarn code:format
 
@@ -30,6 +34,10 @@ jobs:
         with:
           node-version: 18.16.0
           cache: 'yarn'
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - run: yarn install --frozen-lockfile
       - run: yarn code:lint
 
@@ -43,6 +51,10 @@ jobs:
         with:
           node-version: 18.16.0
           cache: 'yarn'
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - run: yarn install --frozen-lockfile
       - run: yarn code:typing
       - run: yarn test:unit
@@ -58,6 +70,10 @@ jobs:
         with:
           node-version: 18.16.0
           cache: 'yarn'
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - run: yarn install --frozen-lockfile
       - run: yarn test:unit
 
@@ -71,5 +87,9 @@ jobs:
         with:
           node-version: 18.16.0
           cache: 'yarn'
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - run: yarn install --frozen-lockfile
       - run: yarn test:mutation

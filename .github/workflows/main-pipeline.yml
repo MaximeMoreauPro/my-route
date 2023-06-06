@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  format-code:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,57 @@ jobs:
           cache: 'yarn'
       - run: yarn install --frozen-lockfile
       - run: yarn code:format
+
+  lint-code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.16.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16.0
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
       - run: yarn code:lint
+
+  typechecked-code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.16.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16.0
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
       - run: yarn code:typing
       - run: yarn test:unit
+      - run: yarn test:mutation
+
+  unit-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.16.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16.0
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
+      - run: yarn test:unit
+
+  mutation-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.16.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16.0
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
       - run: yarn test:mutation

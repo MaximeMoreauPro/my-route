@@ -15,7 +15,7 @@ jobs:
       - name: Use Node.js 12.5.0
         uses: actions/setup-node@v3
         with:
-          node-version: 12.5.0
+          node-version: 18.5.0
           cache: 'yarn'
       - run: yarn install --frozen-lockfile
       - run: yarn code:format

@@ -10,7 +10,8 @@
     "code:lint": "eslint src --max-warnings 0",
     "code:typing": "tsc --noEmit",
     "test:unit": "jest",
-    "test:mutation": "stryker run"
+    "test:mutation": "stryker run",
+    "check-deps-update": "npx --yes npm-check-updates --reject @types/node"
   },
   "bin": {
     "my-route": "dist/apps/cli.js"

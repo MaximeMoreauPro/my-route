@@ -6,5 +6,6 @@
   "testRunner": "jest",
   "testRunner_comment": "Take a look at https://stryker-mutator.io/docs/stryker-js/jest-runner for information about the jest plugin.",
   "coverageAnalysis": "perTest",
-  "ignorePatterns": ["src/apps/cli.ts"]
+  "ignorePatterns": ["src/apps/cli.ts"],
+  "disableTypeChecks": "{test,src,lib}/**/*.{js,ts,jsx,tsx}"
 }

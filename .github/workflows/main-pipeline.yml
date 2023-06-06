@@ -1,0 +1,25 @@
+name: main pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 12.5.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 12.5.0
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
+      - run: yarn code:format
+      - run: yarn code:lint
+      - run: yarn code:typing
+      - run: yarn test:unit
+      - run: yarn test:mutation

@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: my-route_postgres-db
+    image: postgres:15.3
+    environment:
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-db:/data/my-route_postgres-db
+    ports:
+      - '5432:5432'
+
+volumes:
+  postgres-db:
+    driver: local

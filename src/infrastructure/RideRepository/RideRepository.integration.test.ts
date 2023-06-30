@@ -102,7 +102,7 @@ function runRideRepositoryTests(
 
       const userRides = await rideRepository.getRidesByUser('Alex');
 
-      expect(userRides.map(ride => ride.data)).toStrictEqual([
+      expect(userRides).toEqual([
         {
           id: '1',
           driver: 'Alex',

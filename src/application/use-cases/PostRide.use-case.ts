@@ -4,7 +4,7 @@ import { IdProvider } from '../IdProvider';
 import { RideRepository } from '../RideRepository';
 
 export type PostRideCommand = Pick<
-  Ride['data'],
+  Ride,
   | 'driver'
   | 'departurePlace'
   | 'departureTime'

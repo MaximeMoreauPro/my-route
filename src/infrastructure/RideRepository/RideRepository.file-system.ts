@@ -11,10 +11,7 @@ export class FileSystemRideRepository implements RideRepository {
 
     allRides.push(rideToSave);
 
-    return fs.promises.writeFile(
-      this._rideFile,
-      JSON.stringify(allRides.map(ride => ride.data))
-    );
+    return fs.promises.writeFile(this._rideFile, JSON.stringify(allRides));
   }
 
   async getRidesByUser(user: string): Promise<Ride[]> {
@@ -27,7 +24,7 @@ export class FileSystemRideRepository implements RideRepository {
     try {
       const buffer = await fs.promises.readFile(this._rideFile);
 
-      const rideData = JSON.parse(buffer.toString()) as Ride['data'][];
+      const rideData = JSON.parse(buffer.toString()) as Ride[];
 
       return rideData.map(ride => Ride.fromData(ride));
     } catch (e) {

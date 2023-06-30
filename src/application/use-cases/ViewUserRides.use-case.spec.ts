@@ -177,7 +177,7 @@ const createFixture = (
   let message: string;
 
   return {
-    async givenTheseRidesExist(existingRides: Ride['data'][]) {
+    async givenTheseRidesExist(existingRides: Ride[]) {
       rideRepository.givenTheseRidesExist(existingRides);
     },
     async whenViewUserRides(viewUserRidesQuery: ViewUserRidesQuery) {
@@ -190,8 +190,8 @@ const createFixture = (
         message = viewUserRidesQueryResult.message;
       }
     },
-    thenDisplayedRidesShouldBe(expectedRides: Ride['data'][]) {
-      expect(userRides.map(ride => ride.data)).toEqual(expectedRides);
+    thenDisplayedRidesShouldBe(expectedRides: Ride[]) {
+      expect(userRides).toEqual(expectedRides);
     },
     thenDisplayedMessageShouldBe(expectedMessage: string) {
       expect(message).toEqual(expectedMessage);

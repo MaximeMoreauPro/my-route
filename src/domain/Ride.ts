@@ -5,24 +5,27 @@ import { User } from './User';
 export class Ride extends Entity {
   private constructor(
     id: string,
-    private readonly _driver: User,
-    private readonly _departurePlace: string,
-    private readonly _departureTime: Date,
-    private readonly _destinationPlace: string,
-    private readonly _destinationTime: Date,
-    private readonly _postedAt: Date
+    readonly driver: User,
+    readonly departurePlace: string,
+    readonly departureTime: string,
+    readonly destinationPlace: string,
+    readonly destinationTime: string,
+    readonly postedAt: string
   ) {
     super(id);
   }
 
-  static fromData(data: Ride['data']) {
-    const departureTime = new Date(data.departureTime);
-    const destinationTime = new Date(data.destinationTime);
-    const postedAt = new Date(data.postedAt);
+  static fromData(data: Ride) {
+    checkDatetime(data.departureTime);
+    checkDatetime(data.destinationTime);
+    checkDatetime(data.postedAt);
 
-    checkPassedDepartureTime(departureTime, postedAt);
+    checkPassedDepartureTime(data.departureTime, data.postedAt);
 
-    checkDepartureTimeAfterDestinationTime(destinationTime, departureTime);
+    checkDepartureTimeAfterDestinationTime(
+      data.destinationTime,
+      data.departureTime
+    );
 
     const trimedDeparturePlace = data.departurePlace.trim();
     const trimedDestinationPlace = data.destinationPlace.trim();
@@ -39,61 +42,35 @@ export class Ride extends Entity {
       data.id,
       data.driver,
       trimedDeparturePlace,
-      departureTime,
+      data.departureTime,
       trimedDestinationPlace,
-      destinationTime,
-      postedAt
+      data.destinationTime,
+      data.postedAt
     );
-  }
-
-  get data() {
-    return {
-      id: this.id,
-      driver: this.driver,
-      departurePlace: this.departurePlace,
-      departureTime: this.departureTime.toISOString(),
-      destinationPlace: this.destinationPlace,
-      destinationTime: this.destinationTime.toISOString(),
-      postedAt: this.postedAt.toISOString(),
-    };
-  }
-
-  get driver() {
-    return this._driver;
-  }
-
-  get departurePlace() {
-    return this._departurePlace;
-  }
-
-  get departureTime() {
-    return this._departureTime;
-  }
-
-  get destinationPlace() {
-    return this._destinationPlace;
-  }
-
-  get destinationTime() {
-    return this._destinationTime;
-  }
-
-  get postedAt() {
-    return this._postedAt;
   }
 }
 
-function checkPassedDepartureTime(departureTime: Date, postedAt: Date) {
-  if (departureTime.getTime() <= postedAt.getTime()) {
+function checkDatetime(date: string) {
+  if (
+    !/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/.test(
+      date
+    )
+  ) {
+    throw new MyRouteError('WrongFormatDatetimeError');
+  }
+}
+
+function checkPassedDepartureTime(departureTime: string, postedAt: string) {
+  if (departureTime <= postedAt) {
     throw new MyRouteError('PassedDepartureTimeError');
   }
 }
 
 function checkDepartureTimeAfterDestinationTime(
-  destinationTime: Date,
-  departureTime: Date
+  destinationTime: string,
+  departureTime: string
 ) {
-  if (destinationTime.getTime() <= departureTime.getTime()) {
+  if (destinationTime <= departureTime) {
     throw new MyRouteError('DepartureTimeAfterDestinationTimeError');
   }
 }

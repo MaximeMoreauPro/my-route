@@ -2,10 +2,10 @@ import { Ride } from '../../domain/Ride';
 import { RideRepository } from '../../application/RideRepository';
 
 export class InMemoryRideRepository implements RideRepository {
-  rides: Ride['data'][] = [];
+  rides: Ride[] = [];
 
   async save(rideToSave: Ride): Promise<void> {
-    this.rides.push(rideToSave.data);
+    this.rides.push(rideToSave);
     return Promise.resolve();
   }
 
@@ -16,7 +16,7 @@ export class InMemoryRideRepository implements RideRepository {
     return Promise.resolve(userRides);
   }
 
-  givenTheseRidesExist(exsitingRides: Ride['data'][]): void {
+  givenTheseRidesExist(exsitingRides: Ride[]): void {
     this.rides = exsitingRides;
   }
 }

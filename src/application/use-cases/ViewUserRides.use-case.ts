@@ -34,8 +34,6 @@ export class ViewUserRidesUseCase {
   }
 
   private _sortRidesByDepartureTime(rides: Ride[]): Ride[] {
-    return rides.sort(
-      (a, b) => a.departureTime.getTime() - b.departureTime.getTime()
-    );
+    return rides.sort((a, b) => a.departureTime.localeCompare(b.departureTime));
   }
 }

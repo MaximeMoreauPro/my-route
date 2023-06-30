@@ -54,19 +54,21 @@ function runUserRepositoryTests(
     it('should get User by its id', async () => {
       await userRepository.save({ id: '1', name: 'Alex' });
       await userRepository.save({ id: '2', name: 'Zoe' });
+      await userRepository.save({ id: '3', name: 'Bob' });
 
-      const user = await userRepository.getUser('1');
+      const user = await userRepository.getUser('3');
 
-      expect(user).toEqual({ id: '1', name: 'Alex' });
+      expect(user).toEqual({ id: '3', name: 'Bob' });
     });
 
     it('should get User by its name', async () => {
       await userRepository.save({ id: '1', name: 'Alex' });
       await userRepository.save({ id: '2', name: 'Zoe' });
+      await userRepository.save({ id: '3', name: 'Bob' });
 
-      const user = await userRepository.getUserByName('Zoe');
+      const user = await userRepository.getUserByName('Bob');
 
-      expect(user).toEqual({ id: '2', name: 'Zoe' });
+      expect(user).toEqual({ id: '3', name: 'Bob' });
     });
   });
 }

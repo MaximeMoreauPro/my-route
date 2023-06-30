@@ -9,9 +9,9 @@ export class InMemoryRideRepository implements RideRepository {
     return Promise.resolve();
   }
 
-  async getRidesByUser(user: string): Promise<Ride[]> {
+  async getRidesByUser(userId: string): Promise<Ride[]> {
     const userRides = this.rides
-      .filter(({ driver }) => driver === user)
+      .filter(({ driver }) => driver.id === userId)
       .map(ride => Ride.fromData(ride));
     return Promise.resolve(userRides);
   }

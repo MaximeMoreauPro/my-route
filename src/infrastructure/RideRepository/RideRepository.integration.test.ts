@@ -53,7 +53,7 @@ function runRideRepositoryTests(
       await rideRepository.save(
         Ride.fromData({
           id: '1',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
@@ -67,7 +67,7 @@ function runRideRepositoryTests(
       await rideRepository.save(
         Ride.fromData({
           id: '1',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
@@ -79,7 +79,7 @@ function runRideRepositoryTests(
       await rideRepository.save(
         Ride.fromData({
           id: '2',
-          driver: 'Zoe',
+          driver: { id: '2', name: 'Zoe' },
           departurePlace: 'Manchester',
           departureTime: '2023-01-01T10:30:00.000Z',
           destinationPlace: 'Liverpool',
@@ -91,7 +91,7 @@ function runRideRepositoryTests(
       await rideRepository.save(
         Ride.fromData({
           id: '3',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'Brighton',
           departureTime: '2023-01-02T12:30:00.000Z',
           destinationPlace: 'London',
@@ -100,12 +100,12 @@ function runRideRepositoryTests(
         })
       );
 
-      const userRides = await rideRepository.getRidesByUser('Alex');
+      const userRides = await rideRepository.getRidesByUser('1');
 
       expect(userRides).toEqual([
         {
           id: '1',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
@@ -114,7 +114,7 @@ function runRideRepositoryTests(
         },
         {
           id: '3',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'Brighton',
           departureTime: '2023-01-02T12:30:00.000Z',
           destinationPlace: 'London',

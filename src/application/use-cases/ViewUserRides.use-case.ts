@@ -13,11 +13,11 @@ export class ViewUserRidesUseCase {
     user,
   }: ViewUserRidesQuery): Promise<Ride[] | { message: string }> {
     try {
-      const userRides = await this.rideRepository.getRidesByUser(user);
+      const userRides = await this.rideRepository.getRidesByUser(user.id);
 
       if (userRides.length === 0) {
         return {
-          message: `${user} has no ride`,
+          message: `${user.name} has no ride`,
         };
       }
 
@@ -28,7 +28,7 @@ export class ViewUserRidesUseCase {
     } catch (e) {
       console.error(e);
       return {
-        message: `${user}'s rides cannot be fetched. Please try later`,
+        message: `${user.name}'s rides cannot be fetched. Please try later`,
       };
     }
   }

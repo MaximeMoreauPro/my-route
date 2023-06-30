@@ -17,7 +17,7 @@ describe('Feature: view user rides', () => {
       fixture.givenTheseRidesExist([
         {
           id: '1',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
@@ -26,7 +26,7 @@ describe('Feature: view user rides', () => {
         },
         {
           id: '2',
-          driver: 'Zoe',
+          driver: { id: '2', name: 'Zoe' },
           departurePlace: 'Manchester',
           departureTime: '2023-01-01T10:30:00.000Z',
           destinationPlace: 'Liverpool',
@@ -35,7 +35,7 @@ describe('Feature: view user rides', () => {
         },
         {
           id: '3',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'Brighton',
           departureTime: '2022-12-01T12:30:00.000Z',
           destinationPlace: 'London',
@@ -44,7 +44,7 @@ describe('Feature: view user rides', () => {
         },
         {
           id: '4',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'London',
           departureTime: '2023-02-01T12:30:00.000Z',
           destinationPlace: 'Liverpool',
@@ -53,12 +53,12 @@ describe('Feature: view user rides', () => {
         },
       ]);
 
-      await fixture.whenViewUserRides({ user: 'Alex' });
+      await fixture.whenViewUserRides({ user: { id: '1', name: 'Alex' } });
 
       fixture.thenDisplayedRidesShouldBe([
         {
           id: '3',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'Brighton',
           departureTime: '2022-12-01T12:30:00.000Z',
           destinationPlace: 'London',
@@ -67,7 +67,7 @@ describe('Feature: view user rides', () => {
         },
         {
           id: '1',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
@@ -76,7 +76,7 @@ describe('Feature: view user rides', () => {
         },
         {
           id: '4',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'London',
           departureTime: '2023-02-01T12:30:00.000Z',
           destinationPlace: 'Liverpool',
@@ -92,7 +92,7 @@ describe('Feature: view user rides', () => {
       fixture.givenTheseRidesExist([
         {
           id: '1',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
@@ -101,7 +101,7 @@ describe('Feature: view user rides', () => {
         },
         {
           id: '2',
-          driver: 'Zoe',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'Manchester',
           departureTime: '2023-01-01T10:30:00.000Z',
           destinationPlace: 'Liverpool',
@@ -110,7 +110,7 @@ describe('Feature: view user rides', () => {
         },
         {
           id: '3',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'Brighton',
           departureTime: '2022-12-01T12:30:00.000Z',
           destinationPlace: 'London',
@@ -119,7 +119,7 @@ describe('Feature: view user rides', () => {
         },
         {
           id: '4',
-          driver: 'Alex',
+          driver: { id: '1', name: 'Alex' },
           departurePlace: 'London',
           departureTime: '2023-02-01T12:30:00.000Z',
           destinationPlace: 'Liverpool',
@@ -128,7 +128,7 @@ describe('Feature: view user rides', () => {
         },
       ]);
 
-      await fixture.whenViewUserRides({ user: 'Tom' });
+      await fixture.whenViewUserRides({ user: { id: '3', name: 'Tom' } });
 
       fixture.thenDisplayedMessageShouldBe('Tom has no ride');
     });
@@ -143,7 +143,7 @@ describe('Feature: view user rides', () => {
       fixture.givenTheseRidesExist([
         {
           id: '1',
-          driver: 'Tom',
+          driver: { id: '3', name: 'Tom' },
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
@@ -152,7 +152,7 @@ describe('Feature: view user rides', () => {
         },
       ]);
 
-      await fixture.whenViewUserRides({ user: 'Tom' });
+      await fixture.whenViewUserRides({ user: { id: '3', name: 'Tom' } });
 
       fixture.thenDisplayedMessageShouldBe(
         "Tom's rides cannot be fetched. Please try later"

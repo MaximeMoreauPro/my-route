@@ -16,7 +16,7 @@ describe('Feature: post a ride', () => {
     fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
     await fixture.whenUserPostRide({
-      driver: 'Alex',
+      driver: { id: '1', name: 'Alex' },
       departurePlace: 'London',
       departureTime: '2023-01-01T12:30:00.000Z',
       destinationPlace: 'Brighton',
@@ -25,7 +25,7 @@ describe('Feature: post a ride', () => {
 
     fixture.thenPostedRideShouldBe({
       id: fixture.getIdByIndex(0),
-      driver: 'Alex',
+      driver: { id: '1', name: 'Alex' },
       departurePlace: 'London',
       departureTime: '2023-01-01T12:30:00.000Z',
       destinationPlace: 'Brighton',
@@ -39,7 +39,7 @@ describe('Feature: post a ride', () => {
       fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
-        driver: 'Alex',
+        driver: { id: '1', name: 'Alex' },
         departurePlace: 'London',
         departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: 'Brighton',
@@ -56,7 +56,7 @@ describe('Feature: post a ride', () => {
       fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
-        driver: 'Alex',
+        driver: { id: '1', name: 'Alex' },
         departurePlace: 'London',
         departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: 'Brighton',
@@ -75,7 +75,7 @@ describe('Feature: post a ride', () => {
       fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
-        driver: 'Alex',
+        driver: { id: '1', name: 'Alex' },
         departurePlace: 'London',
         departureTime: '2023-01-01T07:30:00.000Z',
         destinationPlace: 'Brighton',
@@ -92,7 +92,7 @@ describe('Feature: post a ride', () => {
       fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
-        driver: 'Alex',
+        driver: { id: '1', name: 'Alex' },
         departurePlace: 'London',
         departureTime: '2023-01-01T08:00:00.000Z',
         destinationPlace: 'Brighton',
@@ -111,7 +111,7 @@ describe('Feature: post a ride', () => {
       fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
-        driver: 'Alex',
+        driver: { id: '1', name: 'Alex' },
         departurePlace: '   ',
         departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: 'Brighton',
@@ -128,7 +128,7 @@ describe('Feature: post a ride', () => {
       fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
-        driver: 'Alex',
+        driver: { id: '1', name: 'Alex' },
         departurePlace: 'London',
         departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: '   ',
@@ -147,7 +147,7 @@ describe('Feature: post a ride', () => {
       fixture.givenNowIs('2023-01-01T08:00:00.000Z');
 
       await fixture.whenUserPostRide({
-        driver: 'Alex',
+        driver: { id: '1', name: 'Alex' },
         departurePlace: 'London',
         departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: 'London',

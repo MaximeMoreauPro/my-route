@@ -13,7 +13,7 @@ const DEFAULT_ERROR_MESSAGE: Record<MyRouteErrorCode, string> = {
   SameDepartureAndDestinationPlaceError:
     'the departure and destination places must be different',
   WrongFormatDatetimeError:
-    'the datetime must be in the ISO 8601 format YYYY-MM-DDTHH:mm:ss.sssZ ',
+    'the datetime must be in the ISO 8601 format YYYY-MM-DDTHH:mm:ss.sssZ',
 };
 
 export class MyRouteError extends Error {

@@ -14,10 +14,10 @@ export class FileSystemRideRepository implements RideRepository {
     return fs.promises.writeFile(this._rideFile, JSON.stringify(allRides));
   }
 
-  async getRidesByUser(user: string): Promise<Ride[]> {
+  async getRidesByUser(userId: string): Promise<Ride[]> {
     const allRides = await this._readAllRidesFromFile();
 
-    return allRides.filter(ride => ride.driver === user);
+    return allRides.filter(ride => ride.driver.id === userId);
   }
 
   private async _readAllRidesFromFile(): Promise<Ride[]> {

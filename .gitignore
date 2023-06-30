@@ -11,3 +11,6 @@ coverage
 reports/mutation
 
 *-test.json
+
+# dotenv environment variables file
+.env

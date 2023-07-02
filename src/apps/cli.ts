@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
-import * as path from 'path';
-
 import { Command } from 'commander';
+import { PrismaClient } from '@prisma/client';
 
 import {
   PostRideCommand,
@@ -13,22 +12,20 @@ import {
   ViewUserRidesQuery,
 } from '../application/use-cases/ViewUserRides.use-case';
 
-import { FileSystemRideRepository } from '../infrastructure/RideRepository/RideRepository.file-system';
+import { PrismaRideRepository } from '../infrastructure/RideRepository/RideRepository.prisma';
 import { RealDateProvider } from '../infrastructure/DateProvider/DateProvider.real';
 import { UUIDv4IdProvider } from '../infrastructure/IdProvider/IdProvider.uuidv4';
 import {
   CreateUserCommand,
   CreateUserUseCase,
 } from '../application/use-cases/CreateUser.use-case';
-import { FileSystemUserRepository } from '../infrastructure/UserRepository/UserRepository.file-system';
+import { PrismaUserRepository } from '../infrastructure/UserRepository/UserRepository.prisma';
 
-const userRepository = new FileSystemUserRepository(
-  path.join(__dirname, 'users.json')
-);
+const prismaClient = new PrismaClient();
 
-const rideRepository = new FileSystemRideRepository(
-  path.join(__dirname, 'rides.json')
-);
+const userRepository = new PrismaUserRepository(prismaClient);
+
+const rideRepository = new PrismaRideRepository(prismaClient);
 const dateProvider = new RealDateProvider();
 const idProvider = new UUIDv4IdProvider();
 
@@ -128,7 +125,9 @@ cli
   );
 
 async function main() {
+  await prismaClient.$connect();
   await cli.parseAsync();
+  await prismaClient.$disconnect();
 }
 
 main();

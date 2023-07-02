@@ -11,10 +11,15 @@ describe('Feature: create a user', () => {
 
   test('The system can create a user', async () => {
     await fixture.whenSystemCreateAUser({
-      name: 'Alex',
+      firstName: 'Alex',
+      lastName: 'Johnson',
+      email: 'alex@johnson.com',
     });
 
-    await fixture.thenTheCreatedUserHasTheId('Alex', fixture.getIdByIndex(0));
+    await fixture.thenTheCreatedUserHasTheId(
+      'alex@johnson.com',
+      fixture.getIdByIndex(0)
+    );
   });
 });
 
@@ -29,8 +34,11 @@ const createFixture = () => {
     async whenSystemCreateAUser(createUserCommand: CreateUserCommand) {
       await postRideUseCase.handle(createUserCommand);
     },
-    async thenTheCreatedUserHasTheId(userName: string, expectedUserId: string) {
-      const user = await userRepository.getUserByName(userName);
+    async thenTheCreatedUserHasTheId(
+      userEmail: string,
+      expectedUserId: string
+    ) {
+      const user = await userRepository.getUserByEmail(userEmail);
 
       expect(user?.id).toEqual(expectedUserId);
     },

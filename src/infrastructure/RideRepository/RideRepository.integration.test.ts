@@ -53,7 +53,12 @@ function runRideRepositoryTests(
       await rideRepository.save(
         Ride.fromData({
           id: '1',
-          driver: { id: '1', name: 'Alex' },
+          driver: {
+            id: '1',
+            firstName: 'Alex',
+            lastName: 'Johnson',
+            email: 'alex@johnson.com',
+          },
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
@@ -67,7 +72,12 @@ function runRideRepositoryTests(
       await rideRepository.save(
         Ride.fromData({
           id: '1',
-          driver: { id: '1', name: 'Alex' },
+          driver: {
+            id: '1',
+            firstName: 'Alex',
+            lastName: 'Johnson',
+            email: 'alex@johnson.com',
+          },
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
@@ -79,7 +89,12 @@ function runRideRepositoryTests(
       await rideRepository.save(
         Ride.fromData({
           id: '2',
-          driver: { id: '2', name: 'Zoe' },
+          driver: {
+            id: '2',
+            firstName: 'Zoe',
+            lastName: 'Davies',
+            email: 'zoe@davies.com',
+          },
           departurePlace: 'Manchester',
           departureTime: '2023-01-01T10:30:00.000Z',
           destinationPlace: 'Liverpool',
@@ -91,7 +106,12 @@ function runRideRepositoryTests(
       await rideRepository.save(
         Ride.fromData({
           id: '3',
-          driver: { id: '1', name: 'Alex' },
+          driver: {
+            id: '1',
+            firstName: 'Alex',
+            lastName: 'Johnson',
+            email: 'alex@johnson.com',
+          },
           departurePlace: 'Brighton',
           departureTime: '2023-01-02T12:30:00.000Z',
           destinationPlace: 'London',
@@ -105,7 +125,12 @@ function runRideRepositoryTests(
       expect(userRides).toEqual([
         {
           id: '1',
-          driver: { id: '1', name: 'Alex' },
+          driver: {
+            id: '1',
+            firstName: 'Alex',
+            lastName: 'Johnson',
+            email: 'alex@johnson.com',
+          },
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
@@ -114,7 +139,12 @@ function runRideRepositoryTests(
         },
         {
           id: '3',
-          driver: { id: '1', name: 'Alex' },
+          driver: {
+            id: '1',
+            firstName: 'Alex',
+            lastName: 'Johnson',
+            email: 'alex@johnson.com',
+          },
           departurePlace: 'Brighton',
           departureTime: '2023-01-02T12:30:00.000Z',
           destinationPlace: 'London',

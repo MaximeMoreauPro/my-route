@@ -6,7 +6,12 @@ describe('Rule: the datetime must be in ISO format', () => {
       Ride.fromData({
         id: '1',
         postedAt: '2023-01-01T10:30:00.000Z',
-        driver: { id: '1', name: 'Alex' },
+        driver: {
+          id: '1',
+          firstName: 'Alex',
+          lastName: 'Johnson',
+          email: 'alex@johnson.com',
+        },
         departurePlace: 'London',
         departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: 'Brighton',
@@ -20,7 +25,12 @@ describe('Rule: the datetime must be in ISO format', () => {
       Ride.fromData({
         id: '1',
         postedAt: '2023-01-01-08:00',
-        driver: { id: '1', name: 'Alex' },
+        driver: {
+          id: '1',
+          firstName: 'Alex',
+          lastName: 'Johnson',
+          email: 'alex@johnson.com',
+        },
         departurePlace: 'London',
         departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: 'Brighton',
@@ -34,7 +44,12 @@ describe('Rule: the datetime must be in ISO format', () => {
       Ride.fromData({
         id: '1',
         postedAt: '2023-01-01T12:30:00.000Z',
-        driver: { id: '1', name: 'Alex' },
+        driver: {
+          id: '1',
+          firstName: 'Alex',
+          lastName: 'Johnson',
+          email: 'alex@johnson.com',
+        },
         departurePlace: 'London',
         departureTime: '2023-01-01-08:00',
         destinationPlace: 'Brighton',
@@ -48,7 +63,12 @@ describe('Rule: the datetime must be in ISO format', () => {
       Ride.fromData({
         id: '1',
         postedAt: '2023-01-01T12:30:00.000Z',
-        driver: { id: '1', name: 'Alex' },
+        driver: {
+          id: '1',
+          firstName: 'Alex',
+          lastName: 'Johnson',
+          email: 'alex@johnson.com',
+        },
         departurePlace: 'London',
         departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: 'Brighton',

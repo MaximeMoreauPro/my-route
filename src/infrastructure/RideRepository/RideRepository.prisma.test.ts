@@ -52,13 +52,29 @@ describe('PrismaRideRepository', () => {
 
   test('save a Ride', async () => {
     const userRepository = new PrismaUserRepository(prismaClient);
-    await userRepository.save({ id: '1', name: 'Alex' });
-    await userRepository.save({ id: '2', name: 'Alice' });
+
+    await userRepository.save({
+      id: '1',
+      firstName: 'Alex',
+      lastName: 'Johnson',
+      email: 'alex@johnson.com',
+    });
+    await userRepository.save({
+      id: '2',
+      firstName: 'Alice',
+      lastName: 'Davies',
+      email: 'alice@davies.com',
+    });
 
     const rideRepository = new PrismaRideRepository(prismaClient);
     await rideRepository.save({
       id: '1',
-      driver: { id: '1', name: 'Alex' },
+      driver: {
+        id: '1',
+        firstName: 'Alex',
+        lastName: 'Johnson',
+        email: 'alex@johnson.com',
+      },
       departurePlace: 'London',
       departureTime: '2023-01-01T12:30:00.000Z',
       destinationPlace: 'Brighton',
@@ -67,7 +83,12 @@ describe('PrismaRideRepository', () => {
     });
     await rideRepository.save({
       id: '2',
-      driver: { id: '2', name: 'Alice' },
+      driver: {
+        id: '2',
+        firstName: 'Alice',
+        lastName: 'Davies',
+        email: 'alice@davies.com',
+      },
       departurePlace: 'Liverpool',
       departureTime: '2023-01-01T12:30:00.000Z',
       destinationPlace: 'Manchester',

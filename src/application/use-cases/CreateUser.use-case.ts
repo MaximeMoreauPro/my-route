@@ -2,7 +2,7 @@ import { User } from '../../domain/User';
 import { IdProvider } from '../IdProvider';
 import { UserRepository } from '../UserRepository';
 
-export type CreateUserCommand = Pick<User, 'name'>;
+export type CreateUserCommand = Omit<User, 'id'>;
 
 export class CreateUserUseCase {
   constructor(

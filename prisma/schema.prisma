@@ -12,21 +12,27 @@ datasource db {
 
 model User {
   id    String @id @default(uuid())
-  name  String @unique
+  email String @unique
+
+  firstName String @map("first_name")
+  lastName  String @map("last_name")
+
   rides Ride[]
 
   @@map("users")
 }
 
 model Ride {
-  id               String @id @default(uuid())
-  departurePlace   String
-  departureTime    String
-  destinationPlace String
-  destinationTime  String
-  postedAt         String
-  driver           User   @relation(fields: [driverId], references: [id])
-  driverId         String
+  id String @id @default(uuid())
+
+  departurePlace   String @map("departure_place")
+  departureTime    String @map("departure_time")
+  destinationPlace String @map("destination_place")
+  destinationTime  String @map("destination_time")
+  postedAt         String @map("posted_at")
+
+  driver   User   @relation(fields: [driverId], references: [id])
+  driverId String @map("driver_id")
 
   @@map("rides")
 }

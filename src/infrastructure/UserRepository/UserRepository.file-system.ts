@@ -20,10 +20,10 @@ export class FileSystemUserRepository implements UserRepository {
     return allUsers.find(user => user.id === userId);
   }
 
-  async getUserByName(userName: string): Promise<User | undefined> {
+  async getUserByEmail(userEmail: string): Promise<User | undefined> {
     const allUsers = await this._readAllUsersFromFile();
 
-    return allUsers.find(user => user.name === userName);
+    return allUsers.find(user => user.email === userEmail);
   }
 
   private async _readAllUsersFromFile(): Promise<User[]> {

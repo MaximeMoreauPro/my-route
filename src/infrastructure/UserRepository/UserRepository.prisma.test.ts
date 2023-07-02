@@ -51,13 +51,18 @@ describe('PrismaUserRepository', () => {
 
   test('save a User', async () => {
     const userRepository = new PrismaUserRepository(prismaClient);
-    await userRepository.save({ id: '1', name: 'Alice' });
+    await userRepository.save({
+      id: '1',
+      firstName: 'Alice',
+      lastName: 'Smith',
+      email: 'alice@smith.com',
+    });
 
-    const userByName = await userRepository.getUserByName('Alice');
+    const userByName = await userRepository.getUserByEmail('alice@smith.com');
 
     expect(userByName?.id).toEqual('1');
 
     const userById = await userRepository.getUser('1');
-    expect(userById?.name).toEqual('Alice');
+    expect(userById?.email).toEqual('alice@smith.com');
   });
 });

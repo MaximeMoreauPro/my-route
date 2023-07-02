@@ -20,10 +20,10 @@ export class PrismaUserRepository implements UserRepository {
     return user || undefined;
   }
 
-  async getUserByName(userName: string): Promise<User | undefined> {
+  async getUserByEmail(userEmail: string): Promise<User | undefined> {
     const user = await this._prisma.user.findUnique({
       where: {
-        name: userName,
+        email: userEmail,
       },
     });
     return user || undefined;

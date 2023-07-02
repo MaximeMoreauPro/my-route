@@ -48,27 +48,72 @@ function runUserRepositoryTests(
     });
 
     it('should save a User', async () => {
-      await userRepository.save({ id: '1', name: 'Alex' });
+      await userRepository.save({
+        id: '1',
+        firstName: 'Alex',
+        lastName: 'Johnson',
+        email: 'alex@johnson.com',
+      });
     });
 
     it('should get User by its id', async () => {
-      await userRepository.save({ id: '1', name: 'Alex' });
-      await userRepository.save({ id: '2', name: 'Zoe' });
-      await userRepository.save({ id: '3', name: 'Bob' });
+      await userRepository.save({
+        id: '1',
+        firstName: 'Alex',
+        lastName: 'Johnson',
+        email: 'alex@johnson.com',
+      });
+      await userRepository.save({
+        id: '2',
+        firstName: 'Zoe',
+        lastName: 'Davies',
+        email: 'zoe@davies.com',
+      });
+      await userRepository.save({
+        id: '3',
+        firstName: 'Bob',
+        lastName: 'Taylor',
+        email: 'bob@taylor.com',
+      });
 
       const user = await userRepository.getUser('3');
 
-      expect(user).toEqual({ id: '3', name: 'Bob' });
+      expect(user).toStrictEqual({
+        id: '3',
+        firstName: 'Bob',
+        lastName: 'Taylor',
+        email: 'bob@taylor.com',
+      });
     });
 
-    it('should get User by its name', async () => {
-      await userRepository.save({ id: '1', name: 'Alex' });
-      await userRepository.save({ id: '2', name: 'Zoe' });
-      await userRepository.save({ id: '3', name: 'Bob' });
+    it('should get User by its email', async () => {
+      await userRepository.save({
+        id: '1',
+        firstName: 'Alex',
+        lastName: 'Johnson',
+        email: 'alex@johnson.com',
+      });
+      await userRepository.save({
+        id: '2',
+        firstName: 'Zoe',
+        lastName: 'Davies',
+        email: 'zoe@davies.com',
+      });
+      await userRepository.save({
+        id: '3',
+        firstName: 'Bob',
+        lastName: 'Taylor',
+        email: 'bob@taylor.com',
+      });
 
-      const user = await userRepository.getUserByName('Bob');
+      const user = await userRepository.getUserByEmail('bob@taylor.com');
 
-      expect(user).toEqual({ id: '3', name: 'Bob' });
+      expect(user).toStrictEqual({
+        id: '3',
+        firstName: 'Bob',
+        lastName: 'Taylor',
+        email: 'bob@taylor.com',
+      });
     });
   });
 }

@@ -17,7 +17,7 @@ export class ViewUserRidesUseCase {
 
       if (userRides.length === 0) {
         return {
-          message: `${user.name} has no ride`,
+          message: `${user.firstName} ${user.lastName} has no ride`,
         };
       }
 
@@ -28,7 +28,7 @@ export class ViewUserRidesUseCase {
     } catch (e) {
       console.error(e);
       return {
-        message: `${user.name}'s rides cannot be fetched. Please try later`,
+        message: `${user.firstName} ${user.lastName}'s rides cannot be fetched. Please try later`,
       };
     }
   }

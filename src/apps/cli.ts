@@ -45,16 +45,20 @@ cli
   .addCommand(
     new Command('create-user')
       .description('create a user')
-      .argument('<user-name>', 'the user name')
-      .action(async userName => {
+      .argument('<user-first-name>', 'the user first name')
+      .argument('<user-last-name>', 'the user last name')
+      .argument('<email>', 'the user email')
+      .action(async (firstName, lastName, email) => {
         const createUserCommand: CreateUserCommand = {
-          name: userName,
+          firstName,
+          lastName,
+          email,
         };
 
         try {
           await createUserUseCase.handle(createUserCommand);
           console.log('user created!');
-          const user = await userRepository.getUserByName(userName);
+          const user = await userRepository.getUserByEmail(email);
           console.dir(user);
           process.exit(0);
         } catch (e) {
@@ -70,7 +74,7 @@ cli
       .argument('<departure-place>', 'the departure place')
       .argument('<destination-place>', 'the destination place')
       .action(async (userName, departurePlace, destinationPlace) => {
-        const user = await userRepository.getUserByName(userName);
+        const user = await userRepository.getUserByEmail(userName);
         if (user) {
           const nowTimestamp = new Date().getTime();
           const H = 1000 * 60 * 60;
@@ -104,7 +108,7 @@ cli
       .description('view user rides')
       .argument('<user-name>', 'the user name to view the rides of')
       .action(async userName => {
-        const user = await userRepository.getUserByName(userName);
+        const user = await userRepository.getUserByEmail(userName);
 
         if (user) {
           const viewUserRidesQuery: ViewUserRidesQuery = { user };

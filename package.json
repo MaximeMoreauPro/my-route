@@ -33,7 +33,7 @@
     "@stryker-mutator/core": "^7.1.0",
     "@stryker-mutator/jest-runner": "^7.1.0",
     "@types/jest": "^29.5.2",
-    "@types/node": "18.16.0",
+    "@types/node": "20.3.3",
     "@types/uuid": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",

@@ -2,7 +2,11 @@ import { MyRouteError } from '../MyRouteError';
 import { Entity } from './Entity';
 import { User } from './User';
 
+export type RideData = Ride['data'];
+
 export class Ride extends Entity {
+  readonly passengers: User[] = [];
+
   private constructor(
     id: string,
     readonly driver: User,
@@ -15,7 +19,20 @@ export class Ride extends Entity {
     super(id);
   }
 
-  static fromData(data: Ride) {
+  get data() {
+    return {
+      id: this.id,
+      driver: this.driver,
+      departurePlace: this.departurePlace,
+      departureTime: this.departureTime,
+      destinationPlace: this.destinationPlace,
+      destinationTime: this.destinationTime,
+      postedAt: this.postedAt,
+      passengers: this.passengers,
+    };
+  }
+
+  static fromData(data: RideData) {
     checkDatetime(data.departureTime);
     checkDatetime(data.destinationTime);
     checkDatetime(data.postedAt);

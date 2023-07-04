@@ -6,7 +6,9 @@ import {
   StartedPostgreSqlContainer,
 } from 'testcontainers';
 import { promisify } from 'util';
+
 import { PrismaUserRepository } from './UserRepository.prisma';
+import { Alex } from '../tests/User.test-data';
 
 const asyncExec = promisify(exec);
 
@@ -51,18 +53,13 @@ describe('PrismaUserRepository', () => {
 
   test('save a User', async () => {
     const userRepository = new PrismaUserRepository(prismaClient);
-    await userRepository.save({
-      id: '1',
-      firstName: 'Alice',
-      lastName: 'Smith',
-      email: 'alice@smith.com',
-    });
+    await userRepository.save(Alex);
 
-    const userByName = await userRepository.getUserByEmail('alice@smith.com');
+    const userByEmail = await userRepository.getUserByEmail(Alex.email);
 
-    expect(userByName?.id).toEqual('1');
+    expect(userByEmail?.id).toEqual(Alex.id);
 
-    const userById = await userRepository.getUser('1');
-    expect(userById?.email).toEqual('alice@smith.com');
+    const userById = await userRepository.getUser(Alex.id);
+    expect(userById?.email).toEqual(Alex.email);
   });
 });

@@ -8,6 +8,7 @@ import {
 import { promisify } from 'util';
 import { PrismaRideRepository } from './RideRepository.prisma';
 import { PrismaUserRepository } from '../UserRepository/UserRepository.prisma';
+import { Alex, Zoe } from '../tests/User.test-data';
 
 const asyncExec = promisify(exec);
 
@@ -46,67 +47,101 @@ describe('PrismaRideRepository', () => {
     return prismaClient.$disconnect();
   });
 
-  beforeEach(() => {
-    return prismaClient.ride.deleteMany();
+  beforeEach(async () => {
+    await prismaClient.ride.deleteMany();
+
+    return prismaClient.user.deleteMany();
   });
 
   test('save a Ride', async () => {
     const userRepository = new PrismaUserRepository(prismaClient);
 
-    await userRepository.save({
-      id: '1',
-      firstName: 'Alex',
-      lastName: 'Johnson',
-      email: 'alex@johnson.com',
-    });
-    await userRepository.save({
-      id: '2',
-      firstName: 'Alice',
-      lastName: 'Davies',
-      email: 'alice@davies.com',
-    });
+    await userRepository.save(Alex);
+    await userRepository.save(Zoe);
 
     const rideRepository = new PrismaRideRepository(prismaClient);
-    await rideRepository.save({
+    await rideRepository.postRide({
       id: '1',
-      driver: {
-        id: '1',
-        firstName: 'Alex',
-        lastName: 'Johnson',
-        email: 'alex@johnson.com',
-      },
+      driver: Alex,
       departurePlace: 'London',
       departureTime: '2023-01-01T12:30:00.000Z',
       destinationPlace: 'Brighton',
       destinationTime: '2023-01-01T14:30:00.000Z',
       postedAt: '2023-01-01T04:30:00.000Z',
+      passengers: [],
     });
-    await rideRepository.save({
+    await rideRepository.postRide({
       id: '2',
-      driver: {
-        id: '2',
-        firstName: 'Alice',
-        lastName: 'Davies',
-        email: 'alice@davies.com',
-      },
+      driver: Zoe,
       departurePlace: 'Liverpool',
       departureTime: '2023-01-01T12:30:00.000Z',
       destinationPlace: 'Manchester',
       destinationTime: '2023-01-01T14:30:00.000Z',
       postedAt: '2023-01-01T04:30:00.000Z',
+      passengers: [],
     });
 
-    const rides = await rideRepository.getRidesByUser('1');
+    const rides = await rideRepository.getRidesPostedByDriver('1');
 
     expect(rides).toStrictEqual([
       {
         id: '1',
-        driver: { id: '1', name: 'Alex' },
+        driver: Alex,
         departurePlace: 'London',
         departureTime: '2023-01-01T12:30:00.000Z',
         destinationPlace: 'Brighton',
         destinationTime: '2023-01-01T14:30:00.000Z',
         postedAt: '2023-01-01T04:30:00.000Z',
+        passengers: [],
+      },
+    ]);
+  });
+
+  test('book a Ride', async () => {
+    const userRepository = new PrismaUserRepository(prismaClient);
+
+    await userRepository.save(Alex);
+
+    await userRepository.save(Zoe);
+
+    const rideRepository = new PrismaRideRepository(prismaClient);
+    await rideRepository.postRide({
+      id: '1',
+      driver: Alex,
+      departurePlace: 'London',
+      departureTime: '2023-01-01T12:30:00.000Z',
+      destinationPlace: 'Brighton',
+      destinationTime: '2023-01-01T14:30:00.000Z',
+      postedAt: '2023-01-01T04:30:00.000Z',
+      passengers: [],
+    });
+
+    await rideRepository.bookRide({
+      user: Zoe,
+      ride: {
+        id: '1',
+        driver: Alex,
+        departurePlace: 'London',
+        departureTime: '2023-01-01T12:30:00.000Z',
+        destinationPlace: 'Brighton',
+        destinationTime: '2023-01-01T14:30:00.000Z',
+        postedAt: '2023-01-01T04:30:00.000Z',
+        passengers: [],
+      },
+    });
+
+    const rides = await rideRepository.getRidesBookedByPassenger('2');
+
+    expect(rides).toStrictEqual([
+      {
+        id: '1',
+        driver: Alex,
+        departurePlace: 'London',
+        departureTime: '2023-01-01T12:30:00.000Z',
+        destinationPlace: 'Brighton',
+        destinationTime: '2023-01-01T14:30:00.000Z',
+        postedAt: '2023-01-01T04:30:00.000Z',
+        passengers: [Zoe],
       },
     ]);
   });

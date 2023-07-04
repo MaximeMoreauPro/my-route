@@ -14,18 +14,19 @@ export type PostRideCommand = Pick<
 
 export class PostRideUseCase {
   constructor(
-    private readonly _rideRepository: RideRepository,
-    private readonly _dateProvider: DateProvider,
-    private readonly _idProvider: IdProvider
+    private readonly rideRepository: RideRepository,
+    private readonly dateProvider: DateProvider,
+    private readonly idProvider: IdProvider
   ) {}
 
   async handle(postRideCommand: PostRideCommand) {
     const ride = Ride.fromData({
-      id: this._idProvider.getId(),
       ...postRideCommand,
-      postedAt: this._dateProvider.getNow(),
+      id: this.idProvider.getId(),
+      postedAt: this.dateProvider.getNow(),
+      passengers: [],
     });
 
-    await this._rideRepository.save(ride);
+    await this.rideRepository.postRide(ride);
   }
 }

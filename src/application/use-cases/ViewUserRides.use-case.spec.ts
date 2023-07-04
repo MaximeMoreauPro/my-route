@@ -1,9 +1,10 @@
 import { InMemoryRideRepository } from '../../infrastructure/RideRepository/RideRepository.in-memory';
-import { Ride } from '../../domain/Ride';
+import { Ride, RideData } from '../../domain/Ride';
 import {
   ViewUserRidesUseCase,
   ViewUserRidesQuery,
 } from './ViewUserRides.use-case';
+import { Alex, Zoe } from '../../infrastructure/tests/User.test-data';
 
 describe('Feature: view user rides', () => {
   let fixture: Fixture;
@@ -17,113 +18,80 @@ describe('Feature: view user rides', () => {
       fixture.givenTheseRidesExist([
         {
           id: '1',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
+          driver: Alex,
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
           destinationTime: '2023-01-01T14:30:00.000Z',
           postedAt: '2023-01-01T08:30:00.000Z',
+          passengers: [],
         },
         {
           id: '2',
-          driver: {
-            id: '2',
-            firstName: 'Zoe',
-            lastName: 'Davies',
-            email: 'zoe@davies.com',
-          },
+          driver: Zoe,
           departurePlace: 'Manchester',
           departureTime: '2023-01-01T10:30:00.000Z',
           destinationPlace: 'Liverpool',
           destinationTime: '2023-01-01T12:30:00.000Z',
           postedAt: '2023-01-01T09:30:00.000Z',
+          passengers: [],
         },
         {
           id: '3',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
+          driver: Alex,
           departurePlace: 'Brighton',
           departureTime: '2022-12-01T12:30:00.000Z',
           destinationPlace: 'London',
           destinationTime: '2022-12-01T14:30:00.000Z',
           postedAt: '2022-12-01T08:30:00.000Z',
+          passengers: [],
         },
         {
           id: '4',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
+          driver: Alex,
           departurePlace: 'London',
           departureTime: '2023-02-01T12:30:00.000Z',
           destinationPlace: 'Liverpool',
           destinationTime: '2023-02-01T18:30:00.000Z',
           postedAt: '2022-02-01T08:30:00.000Z',
+          passengers: [],
         },
       ]);
 
       await fixture.whenViewUserRides({
-        user: {
-          id: '1',
-          firstName: 'Alex',
-          lastName: 'Johnson',
-          email: 'alex@johnson.com',
-        },
+        user: Alex,
       });
 
       fixture.thenDisplayedRidesShouldBe([
         {
           id: '3',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
+          driver: Alex,
           departurePlace: 'Brighton',
           departureTime: '2022-12-01T12:30:00.000Z',
           destinationPlace: 'London',
           destinationTime: '2022-12-01T14:30:00.000Z',
           postedAt: '2022-12-01T08:30:00.000Z',
+          passengers: [],
         },
         {
           id: '1',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
+          driver: Alex,
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
           destinationTime: '2023-01-01T14:30:00.000Z',
           postedAt: '2023-01-01T08:30:00.000Z',
+          passengers: [],
         },
         {
           id: '4',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
+          driver: Alex,
           departurePlace: 'London',
           departureTime: '2023-02-01T12:30:00.000Z',
           destinationPlace: 'Liverpool',
           destinationTime: '2023-02-01T18:30:00.000Z',
           postedAt: '2022-02-01T08:30:00.000Z',
+          passengers: [],
         },
       ]);
     });
@@ -134,69 +102,48 @@ describe('Feature: view user rides', () => {
       fixture.givenTheseRidesExist([
         {
           id: '1',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
+          driver: Alex,
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
           destinationTime: '2023-01-01T14:30:00.000Z',
           postedAt: '2023-01-01T08:30:00.000Z',
+          passengers: [],
         },
         {
           id: '2',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
+          driver: Alex,
           departurePlace: 'Manchester',
           departureTime: '2023-01-01T10:30:00.000Z',
           destinationPlace: 'Liverpool',
           destinationTime: '2023-01-01T12:30:00.000Z',
           postedAt: '2023-01-01T09:30:00.000Z',
+          passengers: [],
         },
         {
           id: '3',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
+          driver: Alex,
           departurePlace: 'Brighton',
           departureTime: '2022-12-01T12:30:00.000Z',
           destinationPlace: 'London',
           destinationTime: '2022-12-01T14:30:00.000Z',
           postedAt: '2022-12-01T08:30:00.000Z',
+          passengers: [],
         },
         {
           id: '4',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
+          driver: Alex,
           departurePlace: 'London',
           departureTime: '2023-02-01T12:30:00.000Z',
           destinationPlace: 'Liverpool',
           destinationTime: '2023-02-01T18:30:00.000Z',
           postedAt: '2022-02-01T08:30:00.000Z',
+          passengers: [],
         },
       ]);
 
       await fixture.whenViewUserRides({
-        user: {
-          id: '2',
-          firstName: 'Zoe',
-          lastName: 'Davies',
-          email: 'zoe@davies.com',
-        },
+        user: Zoe,
       });
 
       fixture.thenDisplayedMessageShouldBe('Zoe Davies has no ride');
@@ -212,27 +159,18 @@ describe('Feature: view user rides', () => {
       fixture.givenTheseRidesExist([
         {
           id: '1',
-          driver: {
-            id: '2',
-            firstName: 'Zoe',
-            lastName: 'Davies',
-            email: 'zoe@davies.com',
-          },
+          driver: Zoe,
           departurePlace: 'London',
           departureTime: '2023-01-01T12:30:00.000Z',
           destinationPlace: 'Brighton',
           destinationTime: '2023-01-01T14:30:00.000Z',
           postedAt: '2023-01-01T08:30:00.000Z',
+          passengers: [],
         },
       ]);
 
       await fixture.whenViewUserRides({
-        user: {
-          id: '2',
-          firstName: 'Zoe',
-          lastName: 'Davies',
-          email: 'zoe@davies.com',
-        },
+        user: Zoe,
       });
 
       fixture.thenDisplayedMessageShouldBe(
@@ -254,11 +192,11 @@ const createFixture = (
   }
 ) => {
   const viewUserRidesUseCase = new ViewUserRidesUseCase(rideRepository);
-  let userRides: Ride[];
+  let userRides: RideData[];
   let message: string;
 
   return {
-    async givenTheseRidesExist(existingRides: Ride[]) {
+    async givenTheseRidesExist(existingRides: RideData[]) {
       rideRepository.givenTheseRidesExist(existingRides);
     },
     async whenViewUserRides(viewUserRidesQuery: ViewUserRidesQuery) {
@@ -271,7 +209,7 @@ const createFixture = (
         message = viewUserRidesQueryResult.message;
       }
     },
-    thenDisplayedRidesShouldBe(expectedRides: Ride[]) {
+    thenDisplayedRidesShouldBe(expectedRides: RideData[]) {
       expect(userRides).toEqual(expectedRides);
     },
     thenDisplayedMessageShouldBe(expectedMessage: string) {
@@ -282,7 +220,7 @@ const createFixture = (
 
 class ErrorInMemoryRideRepository extends InMemoryRideRepository {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async getRidesByUser(user: string): Promise<Ride[]> {
+  async getRidesPostedByDriver(user: string): Promise<Ride[]> {
     throw new Error('getRidesByUser error for testing purpose');
   }
 }

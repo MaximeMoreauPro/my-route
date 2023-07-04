@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import { FileSystemUserRepository } from './UserRepository.file-system';
 import { InMemoryUserRepository } from './UserRepository.in-memory';
 import { UserRepository } from '../../application/UserRepository';
+import { Alex, Bob, Zoe } from '../tests/User.test-data';
 
 const USERS_TEST_FILE = path.join(__dirname, 'users-test.json');
 
@@ -48,72 +49,33 @@ function runUserRepositoryTests(
     });
 
     it('should save a User', async () => {
-      await userRepository.save({
-        id: '1',
-        firstName: 'Alex',
-        lastName: 'Johnson',
-        email: 'alex@johnson.com',
-      });
+      await userRepository.save(Alex);
     });
 
     it('should get User by its id', async () => {
-      await userRepository.save({
-        id: '1',
-        firstName: 'Alex',
-        lastName: 'Johnson',
-        email: 'alex@johnson.com',
-      });
-      await userRepository.save({
-        id: '2',
-        firstName: 'Zoe',
-        lastName: 'Davies',
-        email: 'zoe@davies.com',
-      });
-      await userRepository.save({
-        id: '3',
-        firstName: 'Bob',
-        lastName: 'Taylor',
-        email: 'bob@taylor.com',
-      });
+      await userRepository.save(Alex);
+      await userRepository.save(Zoe);
+      await userRepository.save(Bob);
 
-      const user = await userRepository.getUser('3');
-
-      expect(user).toStrictEqual({
-        id: '3',
-        firstName: 'Bob',
-        lastName: 'Taylor',
-        email: 'bob@taylor.com',
-      });
+      const users = await Promise.all([
+        userRepository.getUser(Alex.id),
+        userRepository.getUser(Zoe.id),
+        userRepository.getUser(Bob.id),
+      ]);
+      expect(users).toStrictEqual([Alex, Zoe, Bob]);
     });
 
     it('should get User by its email', async () => {
-      await userRepository.save({
-        id: '1',
-        firstName: 'Alex',
-        lastName: 'Johnson',
-        email: 'alex@johnson.com',
-      });
-      await userRepository.save({
-        id: '2',
-        firstName: 'Zoe',
-        lastName: 'Davies',
-        email: 'zoe@davies.com',
-      });
-      await userRepository.save({
-        id: '3',
-        firstName: 'Bob',
-        lastName: 'Taylor',
-        email: 'bob@taylor.com',
-      });
+      await userRepository.save(Alex);
+      await userRepository.save(Zoe);
+      await userRepository.save(Bob);
 
-      const user = await userRepository.getUserByEmail('bob@taylor.com');
-
-      expect(user).toStrictEqual({
-        id: '3',
-        firstName: 'Bob',
-        lastName: 'Taylor',
-        email: 'bob@taylor.com',
-      });
+      const users = await Promise.all([
+        userRepository.getUserByEmail(Alex.email),
+        userRepository.getUserByEmail(Zoe.email),
+        userRepository.getUserByEmail(Bob.email),
+      ]);
+      expect(users).toStrictEqual([Alex, Zoe, Bob]);
     });
   });
 }

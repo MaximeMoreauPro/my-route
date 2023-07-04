@@ -1,4 +1,4 @@
-import { Ride } from '../../domain/Ride';
+import { RideData } from '../../domain/Ride';
 import { User } from '../../domain/User';
 import { RideRepository } from '../RideRepository';
 
@@ -11,9 +11,11 @@ export class ViewUserRidesUseCase {
 
   async handle({
     user,
-  }: ViewUserRidesQuery): Promise<Ride[] | { message: string }> {
+  }: ViewUserRidesQuery): Promise<RideData[] | { message: string }> {
     try {
-      const userRides = await this.rideRepository.getRidesByUser(user.id);
+      const userRides = await this.rideRepository.getRidesPostedByDriver(
+        user.id
+      );
 
       if (userRides.length === 0) {
         return {
@@ -22,7 +24,7 @@ export class ViewUserRidesUseCase {
       }
 
       const ridesSortedByDepartureTime =
-        this._sortRidesByDepartureTime(userRides);
+        this.sortRidesByDepartureTime(userRides);
 
       return Promise.resolve(ridesSortedByDepartureTime);
     } catch (e) {
@@ -33,7 +35,7 @@ export class ViewUserRidesUseCase {
     }
   }
 
-  private _sortRidesByDepartureTime(rides: Ride[]): Ride[] {
+  private sortRidesByDepartureTime(rides: RideData[]): RideData[] {
     return rides.sort((a, b) => a.departureTime.localeCompare(b.departureTime));
   }
 }

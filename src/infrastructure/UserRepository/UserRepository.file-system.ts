@@ -7,7 +7,7 @@ export class FileSystemUserRepository implements UserRepository {
   constructor(private readonly _usersFile: string) {}
 
   async save(userToSave: User): Promise<void> {
-    const allUsers = await this._readAllUsersFromFile();
+    const allUsers = await this.readAllUsersFromFile();
 
     allUsers.push(userToSave);
 
@@ -15,18 +15,18 @@ export class FileSystemUserRepository implements UserRepository {
   }
 
   async getUser(userId: string): Promise<User | undefined> {
-    const allUsers = await this._readAllUsersFromFile();
+    const allUsers = await this.readAllUsersFromFile();
 
     return allUsers.find(user => user.id === userId);
   }
 
   async getUserByEmail(userEmail: string): Promise<User | undefined> {
-    const allUsers = await this._readAllUsersFromFile();
+    const allUsers = await this.readAllUsersFromFile();
 
     return allUsers.find(user => user.email === userEmail);
   }
 
-  private async _readAllUsersFromFile(): Promise<User[]> {
+  private async readAllUsersFromFile(): Promise<User[]> {
     try {
       const buffer = await fs.promises.readFile(this._usersFile);
 

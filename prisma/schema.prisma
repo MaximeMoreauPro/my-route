@@ -19,6 +19,8 @@ model User {
 
   rides Ride[]
 
+  bookedRides Ride[] @relation("booked_rides")
+
   @@map("users")
 }
 
@@ -33,6 +35,8 @@ model Ride {
 
   driver   User   @relation(fields: [driverId], references: [id])
   driverId String @map("driver_id")
+
+  passengers User[] @relation("booked_rides")
 
   @@map("rides")
 }

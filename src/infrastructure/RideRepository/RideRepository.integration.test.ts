@@ -6,6 +6,8 @@ import { Ride } from '../../domain/Ride';
 
 import { FileSystemRideRepository } from './RideRepository.file-system';
 import { InMemoryRideRepository } from './RideRepository.in-memory';
+import { Alex, Zoe } from '../tests/User.test-data';
+import { rideBuilder } from '../tests/Ride.builder';
 
 const RIDE_TEST_FILE = path.join(__dirname, 'rides-test.json');
 
@@ -50,108 +52,25 @@ function runRideRepositoryTests(
     });
 
     it('should save a Ride', async () => {
-      await rideRepository.save(
-        Ride.fromData({
-          id: '1',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
-          departurePlace: 'London',
-          departureTime: '2023-01-01T12:30:00.000Z',
-          destinationPlace: 'Brighton',
-          destinationTime: '2023-01-01T14:30:00.000Z',
-          postedAt: '2023-01-01T08:30:00.000Z',
-        })
-      );
+      expect(async () => {
+        await rideRepository.postRide(Ride.fromData(rideBuilder().build()));
+      }).not.toThrow();
     });
 
     it('should get the saved ride of a User', async () => {
-      await rideRepository.save(
-        Ride.fromData({
-          id: '1',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
-          departurePlace: 'London',
-          departureTime: '2023-01-01T12:30:00.000Z',
-          destinationPlace: 'Brighton',
-          destinationTime: '2023-01-01T14:30:00.000Z',
-          postedAt: '2023-01-01T08:30:00.000Z',
-        })
+      const alexRide = rideBuilder().build();
+      await rideRepository.postRide(Ride.fromData(alexRide));
+
+      await rideRepository.postRide(
+        Ride.fromData(rideBuilder().withId('2').drivenBy(Zoe).build())
       );
 
-      await rideRepository.save(
-        Ride.fromData({
-          id: '2',
-          driver: {
-            id: '2',
-            firstName: 'Zoe',
-            lastName: 'Davies',
-            email: 'zoe@davies.com',
-          },
-          departurePlace: 'Manchester',
-          departureTime: '2023-01-01T10:30:00.000Z',
-          destinationPlace: 'Liverpool',
-          destinationTime: '2023-01-01T12:30:00.000Z',
-          postedAt: '2023-01-01T09:30:00.000Z',
-        })
-      );
+      const alexRides2 = rideBuilder().withId('3').build();
+      await rideRepository.postRide(Ride.fromData(alexRides2));
 
-      await rideRepository.save(
-        Ride.fromData({
-          id: '3',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
-          departurePlace: 'Brighton',
-          departureTime: '2023-01-02T12:30:00.000Z',
-          destinationPlace: 'London',
-          destinationTime: '2023-01-02T14:30:00.000Z',
-          postedAt: '2023-01-01T08:45:00.000Z',
-        })
-      );
+      const userRides = await rideRepository.getRidesPostedByDriver(Alex.id);
 
-      const userRides = await rideRepository.getRidesByUser('1');
-
-      expect(userRides).toEqual([
-        {
-          id: '1',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
-          departurePlace: 'London',
-          departureTime: '2023-01-01T12:30:00.000Z',
-          destinationPlace: 'Brighton',
-          destinationTime: '2023-01-01T14:30:00.000Z',
-          postedAt: '2023-01-01T08:30:00.000Z',
-        },
-        {
-          id: '3',
-          driver: {
-            id: '1',
-            firstName: 'Alex',
-            lastName: 'Johnson',
-            email: 'alex@johnson.com',
-          },
-          departurePlace: 'Brighton',
-          departureTime: '2023-01-02T12:30:00.000Z',
-          destinationPlace: 'London',
-          destinationTime: '2023-01-02T14:30:00.000Z',
-          postedAt: '2023-01-01T08:45:00.000Z',
-        },
-      ]);
+      expect(userRides).toEqual([alexRide, alexRides2]);
     });
   });
 }

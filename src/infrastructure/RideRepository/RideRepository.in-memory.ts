@@ -1,22 +1,41 @@
-import { Ride } from '../../domain/Ride';
+import { RideData } from '../../domain/Ride';
 import { RideRepository } from '../../application/RideRepository';
+import { User } from '../../domain/User';
 
 export class InMemoryRideRepository implements RideRepository {
-  rides: Ride[] = [];
+  rides: RideData[] = [];
 
-  async save(rideToSave: Ride): Promise<void> {
+  async postRide(rideToSave: RideData): Promise<void> {
     this.rides.push(rideToSave);
     return Promise.resolve();
   }
 
-  async getRidesByUser(userId: string): Promise<Ride[]> {
-    const userRides = this.rides
-      .filter(({ driver }) => driver.id === userId)
-      .map(ride => Ride.fromData(ride));
+  async getRidesPostedByDriver(userId: string): Promise<RideData[]> {
+    const userRides = this.rides.filter(({ driver }) => driver.id === userId);
     return Promise.resolve(userRides);
   }
 
-  givenTheseRidesExist(exsitingRides: Ride[]): void {
+  async getRidesBookedByPassenger(userId: string): Promise<RideData[]> {
+    const bookedRides = this.rides.filter(ride =>
+      ride.passengers.some(passenger => passenger.id === userId)
+    );
+    return Promise.resolve(bookedRides);
+  }
+
+  bookRide(params: { user: User; ride: RideData }): Promise<void> {
+    this.rides = this.rides.map(ride => {
+      if (ride.id === params.ride.id) {
+        return {
+          ...ride,
+          passengers: [...ride.passengers, params.user],
+        };
+      }
+      return ride;
+    });
+    return Promise.resolve();
+  }
+
+  givenTheseRidesExist(exsitingRides: RideData[]): void {
     this.rides = exsitingRides;
   }
 }

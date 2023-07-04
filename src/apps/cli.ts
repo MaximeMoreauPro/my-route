@@ -10,7 +10,7 @@ import {
 import {
   ViewUserRidesUseCase,
   ViewUserRidesQuery,
-} from '../application/use-cases/ViewUserRides.use-case';
+} from '../application/use-cases/ViewUserRides/ViewUserRides.use-case';
 
 import { PrismaRideRepository } from '../infrastructure/RideRepository/RideRepository.prisma';
 import { RealDateProvider } from '../infrastructure/DateProvider/DateProvider.real';

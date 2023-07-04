@@ -1,10 +1,9 @@
-import { InMemoryRideRepository } from '../../infrastructure/RideRepository/RideRepository.in-memory';
-import { Ride, RideData } from '../../domain/Ride';
 import {
-  ViewUserRidesUseCase,
-  ViewUserRidesQuery,
-} from './ViewUserRides.use-case';
-import { Alex, Zoe } from '../../infrastructure/tests/User.test-data';
+  ErrorInMemoryRideRepository,
+  Fixture,
+  createFixture,
+} from './ViewUserRides.use-case.test-fixture';
+import { Alex, Zoe } from '../../../infrastructure/tests/User.test-data';
 
 describe('Feature: view user rides', () => {
   let fixture: Fixture;
@@ -179,48 +178,3 @@ describe('Feature: view user rides', () => {
     });
   });
 });
-
-type Fixture = ReturnType<typeof createFixture>;
-
-type CreateFixtureParams = {
-  rideRepository: InMemoryRideRepository;
-};
-
-const createFixture = (
-  { rideRepository }: CreateFixtureParams = {
-    rideRepository: new InMemoryRideRepository(),
-  }
-) => {
-  const viewUserRidesUseCase = new ViewUserRidesUseCase(rideRepository);
-  let userRides: RideData[];
-  let message: string;
-
-  return {
-    async givenTheseRidesExist(existingRides: RideData[]) {
-      rideRepository.givenTheseRidesExist(existingRides);
-    },
-    async whenViewUserRides(viewUserRidesQuery: ViewUserRidesQuery) {
-      const viewUserRidesQueryResult = await viewUserRidesUseCase.handle(
-        viewUserRidesQuery
-      );
-      if (viewUserRidesQueryResult instanceof Array) {
-        userRides = viewUserRidesQueryResult;
-      } else {
-        message = viewUserRidesQueryResult.message;
-      }
-    },
-    thenDisplayedRidesShouldBe(expectedRides: RideData[]) {
-      expect(userRides).toEqual(expectedRides);
-    },
-    thenDisplayedMessageShouldBe(expectedMessage: string) {
-      expect(message).toEqual(expectedMessage);
-    },
-  };
-};
-
-class ErrorInMemoryRideRepository extends InMemoryRideRepository {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async getRidesPostedByDriver(user: string): Promise<Ride[]> {
-    throw new Error('getRidesByUser error for testing purpose');
-  }
-}

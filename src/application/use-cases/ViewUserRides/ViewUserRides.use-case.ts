@@ -1,6 +1,6 @@
-import { RideData } from '../../domain/Ride';
-import { User } from '../../domain/User';
-import { RideRepository } from '../RideRepository';
+import { RideData } from '../../../domain/Ride';
+import { User } from '../../../domain/User';
+import { RideRepository } from '../../RideRepository';
 
 export type ViewUserRidesQuery = {
   user: User;

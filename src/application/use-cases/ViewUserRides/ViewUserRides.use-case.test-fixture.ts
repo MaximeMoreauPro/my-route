@@ -1,5 +1,6 @@
-import { InMemoryRideRepository } from '../../../infrastructure/RideRepository/RideRepository.in-memory';
-import { Ride, RideData } from '../../../domain/Ride';
+import { Ride, RideData } from '@/domain/Ride';
+import { InMemoryRideRepository } from '@/infrastructure/RideRepository/RideRepository.in-memory';
+
 import {
   ViewUserRidesUseCase,
   ViewUserRidesQuery,

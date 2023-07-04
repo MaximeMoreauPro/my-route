@@ -1,10 +1,11 @@
+import { Alex, Bob, Zoe } from '@/infrastructure/tests/User.test-data';
+import { rideBuilder } from '@/infrastructure/tests/Ride.builder';
+
 import {
   ErrorInMemoryRideRepository,
   Fixture,
   createFixture,
 } from './ViewUserRides.use-case.test-fixture';
-import { Alex, Bob, Zoe } from '../../../infrastructure/tests/User.test-data';
-import { rideBuilder } from '../../../infrastructure/tests/Ride.builder';
 
 describe('Feature: view user rides', () => {
   let fixture: Fixture;

@@ -1,5 +1,5 @@
-import { RideData } from '../domain/Ride';
-import { User } from '../domain/User';
+import { RideData } from '@/domain/Ride';
+import { User } from '@/domain/User';
 
 export interface RideRepository {
   postRide: (ride: RideData) => Promise<void>;

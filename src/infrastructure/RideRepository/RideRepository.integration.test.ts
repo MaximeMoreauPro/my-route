@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 
-import { RideRepository } from '../../application/RideRepository';
+import { RideRepository } from '../../application/repositories/RideRepository';
 import { Ride } from '../../domain/Ride';
 
 import { FileSystemRideRepository } from './RideRepository.file-system';

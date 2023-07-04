@@ -1,7 +1,7 @@
-import { Ride } from '../../domain/Ride';
-import { DateProvider } from '../DateProvider';
-import { IdProvider } from '../IdProvider';
-import { RideRepository } from '../RideRepository';
+import { Ride } from '@/domain/Ride';
+import { DateProvider } from '@/application/providers/DateProvider';
+import { IdProvider } from '@/application/providers/IdProvider';
+import { RideRepository } from '@/application/repositories/RideRepository';
 
 export type PostRideCommand = Pick<
   Ride,

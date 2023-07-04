@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { RideRepository } from '../../application/RideRepository';
+import { RideRepository } from '../../application/repositories/RideRepository';
 import { RideData } from '../../domain/Ride';
 import { User } from '../../domain/User';
 

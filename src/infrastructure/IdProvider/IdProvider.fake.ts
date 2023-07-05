@@ -1,4 +1,4 @@
-import { IdProvider } from '../../application/IdProvider';
+import { IdProvider } from '@/application/providers/IdProvider';
 
 export class FakeIdProvider implements IdProvider {
   private index = 0;

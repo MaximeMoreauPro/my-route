@@ -1,13 +1,13 @@
 import * as path from 'path';
 import * as fs from 'fs';
 
-import { RideRepository } from '../../application/repositories/RideRepository';
-import { Ride } from '../../domain/Ride';
+import { RideRepository } from '@/application/repositories/RideRepository';
+import { Ride } from '@/domain/Ride';
+import { Alex, Zoe } from '@/infrastructure/tests/User.test-data';
+import { rideBuilder } from '@/infrastructure/tests/Ride.builder';
 
 import { FileSystemRideRepository } from './RideRepository.file-system';
 import { InMemoryRideRepository } from './RideRepository.in-memory';
-import { Alex, Zoe } from '../tests/User.test-data';
-import { rideBuilder } from '../tests/Ride.builder';
 
 const RIDE_TEST_FILE = path.join(__dirname, 'rides-test.json');
 

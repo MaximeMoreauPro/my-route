@@ -7,8 +7,9 @@ import {
 } from 'testcontainers';
 import { promisify } from 'util';
 
+import { Alex } from '@/infrastructure/tests/User.test-data';
+
 import { PrismaUserRepository } from './UserRepository.prisma';
-import { Alex } from '../tests/User.test-data';
 
 const asyncExec = promisify(exec);
 

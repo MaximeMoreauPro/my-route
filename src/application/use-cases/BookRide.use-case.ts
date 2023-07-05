@@ -1,6 +1,6 @@
-import { RideData } from '../../domain/Ride';
-import { User } from '../../domain/User';
-import { RideRepository } from '../repositories/RideRepository';
+import { RideData } from '@/domain/Ride';
+import { User } from '@/domain/User';
+import { RideRepository } from '@/application/repositories/RideRepository';
 
 export type BookRideCommand = {
   user: User;

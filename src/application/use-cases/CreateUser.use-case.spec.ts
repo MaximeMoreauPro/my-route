@@ -1,5 +1,6 @@
-import { InMemoryUserRepository } from '../../infrastructure/UserRepository/UserRepository.in-memory';
-import { FakeIdProvider } from '../../infrastructure/IdProvider/IdProvider.fake';
+import { InMemoryUserRepository } from '@/infrastructure/UserRepository/UserRepository.in-memory';
+import { FakeIdProvider } from '@/infrastructure/IdProvider/IdProvider.fake';
+
 import { CreateUserUseCase, CreateUserCommand } from './CreateUser.use-case';
 
 describe('Feature: create a user', () => {

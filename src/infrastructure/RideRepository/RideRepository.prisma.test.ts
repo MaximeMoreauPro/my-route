@@ -1,14 +1,16 @@
 import { exec } from 'child_process';
+import { promisify } from 'util';
 
 import { PrismaClient } from '@prisma/client';
 import {
   PostgreSqlContainer,
   StartedPostgreSqlContainer,
 } from 'testcontainers';
-import { promisify } from 'util';
+
+import { PrismaUserRepository } from '@/infrastructure/UserRepository/UserRepository.prisma';
+import { Alex, Zoe } from '@/infrastructure/tests/User.test-data';
+
 import { PrismaRideRepository } from './RideRepository.prisma';
-import { PrismaUserRepository } from '../UserRepository/UserRepository.prisma';
-import { Alex, Zoe } from '../tests/User.test-data';
 
 const asyncExec = promisify(exec);
 

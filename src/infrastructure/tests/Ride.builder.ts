@@ -1,5 +1,6 @@
-import { RideData } from '../../domain/Ride';
-import { User } from '../../domain/User';
+import { RideData } from '@/domain/Ride';
+import { User } from '@/domain/User';
+
 import { Alex } from './User.test-data';
 
 export const rideBuilder = ({

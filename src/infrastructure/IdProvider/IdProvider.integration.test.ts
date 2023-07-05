@@ -1,6 +1,6 @@
 import { version, validate } from 'uuid';
 
-import { IdProvider } from '../../application/IdProvider';
+import { IdProvider } from '@/application/providers/IdProvider';
 
 import { UUIDv4IdProvider } from './IdProvider.uuidv4';
 import { FakeIdProvider } from './IdProvider.fake';

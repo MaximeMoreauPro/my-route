@@ -1,10 +1,11 @@
+import { RideData } from '@/domain/Ride';
+import { MyRouteError, MyRouteErrorCode } from '@/MyRouteError';
+import { StubDateProvider } from '@/infrastructure/DateProvider/DateProvider.stub';
+import { InMemoryRideRepository } from '@/infrastructure/RideRepository/RideRepository.in-memory';
+import { FakeIdProvider } from '@/infrastructure/IdProvider/IdProvider.fake';
+import { Alex } from '@/infrastructure/tests/User.test-data';
+
 import { PostRideCommand, PostRideUseCase } from './PostRide.use-case';
-import { RideData } from '../../domain/Ride';
-import { MyRouteError, MyRouteErrorCode } from '../../MyRouteError';
-import { StubDateProvider } from '../../infrastructure/DateProvider/DateProvider.stub';
-import { InMemoryRideRepository } from '../../infrastructure/RideRepository/RideRepository.in-memory';
-import { FakeIdProvider } from '../../infrastructure/IdProvider/IdProvider.fake';
-import { Alex } from '../../infrastructure/tests/User.test-data';
 
 describe('Feature: post a ride', () => {
   let fixture: Fixture;

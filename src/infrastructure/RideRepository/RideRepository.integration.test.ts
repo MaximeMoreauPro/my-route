@@ -42,12 +42,10 @@ function runRideRepositoryTests(
     let rideRepository: RideRepository;
 
     beforeEach(async () => {
-      await reset();
-
       rideRepository = rideRepositoryFactory();
     });
 
-    afterAll(async () => {
+    afterEach(async () => {
       await reset();
     });
 
@@ -69,6 +67,11 @@ function runRideRepositoryTests(
       await rideRepository.postRide(Ride.fromData(alexRides2));
 
       const userRides = await rideRepository.getRidesPostedByDriver(Alex.id);
+
+      userRides;
+
+      alexRide;
+      alexRides2;
 
       expect(userRides).toEqual([alexRide, alexRides2]);
     });

@@ -21,7 +21,7 @@ describe('PrismaRideRepository', () => {
     const database = 'my-route-test';
     const username = 'test-user';
     const password = 'test';
-    container = await new PostgreSqlContainer()
+    container = await new PostgreSqlContainer('postgres:15.3')
       .withDatabase(database)
       .withUsername(username)
       .withPassword(password)

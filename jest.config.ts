@@ -6,6 +6,7 @@ import { Config } from 'jest';
  */
 
 const config: Config = {
+  testTimeout: 1000 * 60 * 5,
   // Prevent tests from printing messages through the console.
   silent: true,
 

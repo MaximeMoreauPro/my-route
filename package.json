@@ -9,7 +9,7 @@
     "code:format-write": "prettier src --write",
     "code:lint": "eslint src --max-warnings 0",
     "code:typing": "tsc --noEmit",
-    "test:unit": "TESTCONTAINERS_RYUK_PRIVILEGED=true jest",
+    "test:unit": "TESTCONTAINERS_RYUK_PRIVILEGED=true DEBUG=testcontainers* jest",
     "test:mutation": "stryker run",
     "check-deps-update": "npx --yes npm-check-updates --reject @types/node"
   },

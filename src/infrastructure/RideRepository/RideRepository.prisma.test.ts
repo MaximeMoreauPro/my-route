@@ -42,7 +42,7 @@ describe('PrismaRideRepository', () => {
     await asyncExec(`DATABASE_URL=${databaseUrl} npx prisma migrate deploy`);
 
     return prismaClient.$connect();
-  }, 1000 * 60 * 5);
+  }, 1000 * 30);
 
   afterAll(async () => {
     await container.stop({ timeout: 1000 });

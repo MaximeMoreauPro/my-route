@@ -1,0 +1,26 @@
+{
+  "name": "@my-route/shared",
+  "private": true,
+  "version": "0.0.1",
+  "description": "My Route app and admin - Shared code",
+  "main": "dist/apps/cli.js",
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "code:format": "prettier src",
+    "code:format-write": "prettier src --write",
+    "code:lint": "eslint src --max-warnings 0",
+    "code:typing": "tsc --noEmit",
+    "test:unit": "jest",
+    "test:mutation": "stryker run",
+    "check-deps-update": "npx --yes npm-check-updates --reject @types/node"
+  },
+  "bin": "dist/apps/cli.js",
+  "devDependencies": {
+    "@types/uuid": "^9.0.7",
+    "commander": "^11.1.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.6.0",
+    "uuid": "^9.0.1"
+  }
+}

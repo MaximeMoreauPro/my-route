@@ -2228,6 +2228,7 @@ __metadata:
     "@prisma/client": "npm:^5.6.0"
     "@types/uuid": "npm:^9.0.7"
     commander: "npm:^11.1.0"
+    jest: "npm:*"
     uuid: "npm:^9.0.1"
   bin:
     shared: dist/apps/cli.js
@@ -6645,7 +6646,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^29.7.0":
+"jest@npm:*, jest@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest@npm:29.7.0"
   dependencies:

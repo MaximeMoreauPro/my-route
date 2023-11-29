@@ -6,7 +6,7 @@
   "main": "dist/apps/cli.js",
   "scripts": {
     "build": "tsc && tsc-alias",
-    "code:format": "prettier src",
+    "code:format": "prettier src --check",
     "code:format-write": "prettier src --write",
     "code:lint": "eslint src --max-warnings 0",
     "code:typing": "tsc --noEmit",
@@ -19,7 +19,11 @@
     "@stryker-mutator/core": "*",
     "@types/uuid": "^9.0.7",
     "commander": "^11.1.0",
-    "jest": "*"
+    "eslint": "*",
+    "jest": "*",
+    "prettier": "*",
+    "tsc-alias": "*",
+    "typescript": "*"
   },
   "dependencies": {
     "@prisma/client": "^5.6.0",

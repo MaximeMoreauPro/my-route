@@ -15,7 +15,7 @@
     "code:typing": "yarn workspaces foreach --all run code:typing",
     "test:unit": "yarn workspaces foreach --all run test:unit",
     "test:mutation": "yarn workspaces foreach --all run test:mutation",
-    "check-deps-update": "npx --yes npm-check-updates --reject @types/node"
+    "check-deps-update": "npx --yes npm-check-updates --reject @types/node && yarn workspaces foreach --all run check-deps-update"
   },
   "repository": {
     "type": "git",

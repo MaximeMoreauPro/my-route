@@ -2226,6 +2226,7 @@ __metadata:
   resolution: "@my-route/shared@workspace:shared"
   dependencies:
     "@prisma/client": "npm:^5.6.0"
+    "@stryker-mutator/core": "npm:*"
     "@types/uuid": "npm:^9.0.7"
     commander: "npm:^11.1.0"
     jest: "npm:*"
@@ -2472,7 +2473,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stryker-mutator/core@npm:^7.3.0":
+"@stryker-mutator/core@npm:*, @stryker-mutator/core@npm:^7.3.0":
   version: 7.3.0
   resolution: "@stryker-mutator/core@npm:7.3.0"
   dependencies:

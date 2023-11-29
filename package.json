@@ -9,6 +9,8 @@
   ],
   "scripts": {
     "build": "yarn workspaces foreach --all run build",
+    "start": "yarn workspaces foreach --all run start",
+    "dev": "yarn workspaces foreach --all run dev",
     "code:format": "yarn workspaces foreach --all run code:format",
     "code:format-write": "yarn workspaces foreach --all run code:format-write",
     "code:lint": "yarn workspaces foreach --all run code:lint",

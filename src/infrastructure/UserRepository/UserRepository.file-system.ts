@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 
-import { UserRepository } from '@/application/repositories/UserRepository';
-import { User } from '@/domain/User';
+import { UserRepository } from '@/application/repositories/UserRepository.js';
+import { User } from '@/domain/User.js';
 
 export class FileSystemUserRepository implements UserRepository {
   constructor(private readonly _usersFile: string) {}

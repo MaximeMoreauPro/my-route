@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 
-import { RideRepository } from '@/application/repositories/RideRepository';
-import { RideData } from '@/domain/Ride';
-import { User } from '@/domain/User';
+import { RideRepository } from '@/application/repositories/RideRepository.js';
+import { RideData } from '@/domain/Ride.js';
+import { User } from '@/domain/User.js';
 
 export class PrismaRideRepository implements RideRepository {
   constructor(private readonly prisma: PrismaClient) {}

@@ -1,7 +1,7 @@
-import { InMemoryUserRepository } from '@/infrastructure/UserRepository/UserRepository.in-memory';
-import { FakeIdProvider } from '@/infrastructure/IdProvider/IdProvider.fake';
+import { InMemoryUserRepository } from '@/infrastructure/UserRepository/UserRepository.in-memory.js';
+import { FakeIdProvider } from '@/infrastructure/IdProvider/IdProvider.fake.js';
 
-import { CreateUserUseCase, CreateUserCommand } from './CreateUser.use-case';
+import { CreateUserUseCase, CreateUserCommand } from './CreateUser.use-case.js';
 
 describe('Feature: create a user', () => {
   let fixture: Fixture;

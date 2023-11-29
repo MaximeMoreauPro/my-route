@@ -7,10 +7,10 @@ import {
   StartedPostgreSqlContainer,
 } from 'testcontainers';
 
-import { PrismaUserRepository } from '@/infrastructure/UserRepository/UserRepository.prisma';
-import { Alex, Zoe } from '@/infrastructure/tests/User.test-data';
+import { PrismaUserRepository } from '@/infrastructure/UserRepository/UserRepository.prisma.js';
+import { Alex, Zoe } from '@/infrastructure/tests/User.test-data.js';
 
-import { PrismaRideRepository } from './RideRepository.prisma';
+import { PrismaRideRepository } from './RideRepository.prisma.js';
 
 const asyncExec = promisify(exec);
 

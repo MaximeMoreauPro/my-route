@@ -1,7 +1,7 @@
-import { RideData } from '@/domain/Ride';
-import { User } from '@/domain/User';
+import { RideData } from '@/domain/Ride.js';
+import { User } from '@/domain/User.js';
 
-import { Alex } from './User.test-data';
+import { Alex } from './User.test-data.js';
 
 export const rideBuilder = ({
   id = '1',

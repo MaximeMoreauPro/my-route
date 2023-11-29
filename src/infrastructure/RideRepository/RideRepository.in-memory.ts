@@ -1,6 +1,6 @@
-import { RideData } from '@/domain/Ride';
-import { RideRepository } from '@/application/repositories/RideRepository';
-import { User } from '@/domain/User';
+import { RideData } from '@/domain/Ride.js';
+import { RideRepository } from '@/application/repositories/RideRepository.js';
+import { User } from '@/domain/User.js';
 
 export class InMemoryRideRepository implements RideRepository {
   rides: RideData[] = [];

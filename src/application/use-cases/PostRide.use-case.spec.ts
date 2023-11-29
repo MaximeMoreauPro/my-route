@@ -1,11 +1,11 @@
-import { RideData } from '@/domain/Ride';
-import { MyRouteError, MyRouteErrorCode } from '@/MyRouteError';
-import { StubDateProvider } from '@/infrastructure/DateProvider/DateProvider.stub';
-import { InMemoryRideRepository } from '@/infrastructure/RideRepository/RideRepository.in-memory';
-import { FakeIdProvider } from '@/infrastructure/IdProvider/IdProvider.fake';
-import { Alex } from '@/infrastructure/tests/User.test-data';
+import { RideData } from '@/domain/Ride.js';
+import { MyRouteError, MyRouteErrorCode } from '@/MyRouteError.js';
+import { StubDateProvider } from '@/infrastructure/DateProvider/DateProvider.stub.js';
+import { InMemoryRideRepository } from '@/infrastructure/RideRepository/RideRepository.in-memory.js';
+import { FakeIdProvider } from '@/infrastructure/IdProvider/IdProvider.fake.js';
+import { Alex } from '@/infrastructure/tests/User.test-data.js';
 
-import { PostRideCommand, PostRideUseCase } from './PostRide.use-case';
+import { PostRideCommand, PostRideUseCase } from './PostRide.use-case.js';
 
 describe('Feature: post a ride', () => {
   let fixture: Fixture;

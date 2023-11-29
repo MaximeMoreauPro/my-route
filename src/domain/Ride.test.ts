@@ -1,5 +1,5 @@
-import { Alex } from '../infrastructure/tests/User.test-data';
-import { Ride } from './Ride';
+import { Alex } from '../infrastructure/tests/User.test-data.js';
+import { Ride } from './Ride.js';
 
 describe('Rule: the datetime must be in ISO format', () => {
   test('with valid datetime', () => {

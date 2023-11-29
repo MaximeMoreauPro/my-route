@@ -1,4 +1,4 @@
-import { User } from '@/domain/User';
+import { User } from '@/domain/User.js';
 
 export const Alex: User = {
   id: '1',

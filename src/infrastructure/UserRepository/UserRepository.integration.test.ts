@@ -1,11 +1,11 @@
 import * as path from 'path';
 import * as fs from 'fs';
 
-import { UserRepository } from '@/application/repositories/UserRepository';
-import { Alex, Bob, Zoe } from '@/infrastructure/tests/User.test-data';
+import { UserRepository } from '@/application/repositories/UserRepository.js';
+import { Alex, Bob, Zoe } from '@/infrastructure/tests/User.test-data.js';
 
-import { FileSystemUserRepository } from './UserRepository.file-system';
-import { InMemoryUserRepository } from './UserRepository.in-memory';
+import { FileSystemUserRepository } from './UserRepository.file-system.js';
+import { InMemoryUserRepository } from './UserRepository.in-memory.js';
 
 const USERS_TEST_FILE = path.join(__dirname, 'users-test.json');
 

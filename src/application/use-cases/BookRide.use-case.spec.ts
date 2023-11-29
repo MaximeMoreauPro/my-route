@@ -1,9 +1,9 @@
-import { InMemoryRideRepository } from '@/infrastructure/RideRepository/RideRepository.in-memory';
-import { RideData } from '@/domain/Ride';
-import { Alex, Bob } from '@/infrastructure/tests/User.test-data';
-import { rideBuilder } from '@/infrastructure/tests/Ride.builder';
+import { InMemoryRideRepository } from '@/infrastructure/RideRepository/RideRepository.in-memory.js';
+import { RideData } from '@/domain/Ride.js';
+import { Alex, Bob } from '@/infrastructure/tests/User.test-data.js';
+import { rideBuilder } from '@/infrastructure/tests/Ride.builder.js';
 
-import { BookRideCommand, BookRideUseCase } from './BookRide.use-case';
+import { BookRideCommand, BookRideUseCase } from './BookRide.use-case.js';
 
 describe('Feature: a User books a Ride', () => {
   let fixture: Fixture;

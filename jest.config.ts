@@ -103,6 +103,9 @@ const config: Config = {
   moduleNameMapper: {
     '@/(.*)$': '<rootDir>/src/$1',
   },
+  // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+  //   prefix: '<rootDir>/',
+  // }),
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -114,7 +117,7 @@ const config: Config = {
   // notifyMode: 'failure-change',
 
   // A preset that is used as a base for Jest's configuration
-  // preset: undefined,
+  preset: 'ts-jest/presets/default-esm', // Use the ESM preset of ts-jest
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -186,6 +189,16 @@ const config: Config = {
 
   // A map from regular expressions to paths to transformers
   // transform: undefined,
+  transform: {
+    // '^.+\\.[tj]sx?$' to process js/ts with `ts-jest`
+    // '^.+\\.m?[tj]sx?$' to process js/ts/mjs/mts with `ts-jest`
+    '^.+\\.[tj]sx?$': [
+      'ts-jest',
+      {
+        useESM: true,
+      },
+    ],
+  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
@@ -204,6 +217,7 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
 };
 
 export default config;

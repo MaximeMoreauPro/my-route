@@ -1,6 +1,6 @@
-import { MyRouteError } from '../MyRouteError';
-import { Entity } from './Entity';
-import { User } from './User';
+import { MyRouteError } from '../MyRouteError.js';
+import { Entity } from './Entity.js';
+import { User } from './User.js';
 
 export type RideData = Ride['data'];
 

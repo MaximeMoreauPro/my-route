@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 
-import { RideRepository } from '@/application/repositories/RideRepository';
-import { RideData } from '@/domain/Ride';
-import { User } from '@/domain/User';
+import { RideRepository } from '@/application/repositories/RideRepository.js';
+import { RideData } from '@/domain/Ride.js';
+import { User } from '@/domain/User.js';
 
 export class FileSystemRideRepository implements RideRepository {
   constructor(private readonly rideFile: string) {}

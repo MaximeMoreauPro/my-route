@@ -1,4 +1,4 @@
-import { RealDateProvider } from './DateProvider.real';
+import { RealDateProvider } from './DateProvider.real.js';
 
 describe('Real DateProvider', () => {
   beforeAll(() => {

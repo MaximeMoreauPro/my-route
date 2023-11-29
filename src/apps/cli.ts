@@ -6,20 +6,20 @@ import { PrismaClient } from '@prisma/client';
 import {
   PostRideCommand,
   PostRideUseCase,
-} from '@/application/use-cases/PostRide.use-case';
+} from '@/application/use-cases/PostRide.use-case.js';
 import {
   ViewUserRidesUseCase,
   ViewUserRidesQuery,
-} from '@/application/use-cases/ViewUserRides/ViewUserRides.use-case';
+} from '@/application/use-cases/ViewUserRides/ViewUserRides.use-case.js';
 
-import { PrismaRideRepository } from '@/infrastructure/RideRepository/RideRepository.prisma';
-import { RealDateProvider } from '@/infrastructure/DateProvider/DateProvider.real';
-import { UUIDv4IdProvider } from '@/infrastructure/IdProvider/IdProvider.uuidv4';
+import { PrismaRideRepository } from '@/infrastructure/RideRepository/RideRepository.prisma.js';
+import { RealDateProvider } from '@/infrastructure/DateProvider/DateProvider.real.js';
+import { UUIDv4IdProvider } from '@/infrastructure/IdProvider/IdProvider.uuidv4.js';
 import {
   CreateUserCommand,
   CreateUserUseCase,
-} from '@/application/use-cases/CreateUser.use-case';
-import { PrismaUserRepository } from '@/infrastructure/UserRepository/UserRepository.prisma';
+} from '@/application/use-cases/CreateUser.use-case.js';
+import { PrismaUserRepository } from '@/infrastructure/UserRepository/UserRepository.prisma.js';
 
 const prismaClient = new PrismaClient();
 

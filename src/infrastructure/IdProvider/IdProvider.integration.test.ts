@@ -1,9 +1,9 @@
 import { version, validate } from 'uuid';
 
-import { IdProvider } from '@/application/providers/IdProvider';
+import { IdProvider } from '@/application/providers/IdProvider.js';
 
-import { UUIDv4IdProvider } from './IdProvider.uuidv4';
-import { FakeIdProvider } from './IdProvider.fake';
+import { UUIDv4IdProvider } from './IdProvider.uuidv4.js';
+import { FakeIdProvider } from './IdProvider.fake.js';
 
 describe('IdProvider', () => {
   runIdProviderTests('UUIDv4IdProvider', () => new UUIDv4IdProvider());

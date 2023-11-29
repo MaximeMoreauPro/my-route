@@ -1,4 +1,4 @@
-import { DateProvider } from '@/application/providers/DateProvider';
+import { DateProvider } from '@/application/providers/DateProvider.js';
 
 export class StubDateProvider implements DateProvider {
   private now!: string;

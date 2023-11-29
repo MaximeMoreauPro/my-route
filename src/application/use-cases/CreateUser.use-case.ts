@@ -1,6 +1,6 @@
-import { User } from '@/domain/User';
-import { IdProvider } from '@/application/providers/IdProvider';
-import { UserRepository } from '@/application/repositories/UserRepository';
+import { User } from '@/domain/User.js';
+import { IdProvider } from '@/application/providers/IdProvider.js';
+import { UserRepository } from '@/application/repositories/UserRepository.js';
 
 export type CreateUserCommand = Omit<User, 'id'>;
 

@@ -1,10 +1,10 @@
-import { Ride, RideData } from '@/domain/Ride';
-import { InMemoryRideRepository } from '@/infrastructure/RideRepository/RideRepository.in-memory';
+import { Ride, RideData } from '@/domain/Ride.js';
+import { InMemoryRideRepository } from '@/infrastructure/RideRepository/RideRepository.in-memory.js';
 
 import {
   ViewUserRidesUseCase,
   ViewUserRidesQuery,
-} from './ViewUserRides.use-case';
+} from './ViewUserRides.use-case.js';
 
 export type Fixture = ReturnType<typeof createFixture>;
 

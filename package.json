@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "description": "My Route app and admin - Monorepo with web and mobile frontend and backend",
   "workspaces": [
-    "shared"
+    "shared",
+    "web-app"
   ],
   "scripts": {
     "build": "yarn workspaces foreach --all run build",

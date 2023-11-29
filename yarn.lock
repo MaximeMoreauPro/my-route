@@ -2214,7 +2214,7 @@ __metadata:
     commander: "npm:^11.1.0"
     uuid: "npm:^9.0.1"
   bin:
-    my-route: dist/apps/cli.js
+    shared: dist/apps/cli.js
   languageName: unknown
   linkType: soft
 

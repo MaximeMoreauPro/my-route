@@ -13,9 +13,7 @@
     "test:mutation": "stryker run",
     "check-deps-update": "npx --yes npm-check-updates --reject @types/node"
   },
-  "bin": {
-    "my-route": "dist/apps/cli.js"
-  },
+  "bin": "dist/apps/cli.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MaximeMoreauPro/my-route.git"
@@ -52,10 +50,11 @@
   },
   "volta": {
     "node": "20.10.0",
-    "yarn": "1.22.19"
+    "yarn": "4.0.2"
   },
   "dependencies": {
     "@prisma/client": "^5.6.0",
     "uuid": "^9.0.1"
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }

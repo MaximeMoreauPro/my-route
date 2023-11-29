@@ -12,16 +12,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 18.16.0
+      - name: Use Node.js 20.10.0
         uses: actions/setup-node@v3
         with:
-          node-version: 18.16.0
+          node-version: 20.10.0
           cache: 'yarn'
       - uses: actions/cache@v2
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --immutable  --immutable-cache 
       - run: yarn code:format
 
   lint-code:
@@ -29,16 +29,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 18.16.0
+      - name: Use Node.js 20.10.0
         uses: actions/setup-node@v3
         with:
-          node-version: 18.16.0
+          node-version: 20.10.0
           cache: 'yarn'
       - uses: actions/cache@v2
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --immutable  --immutable-cache 
       - run: yarn code:lint
 
   typechecked-code:
@@ -46,16 +46,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 18.16.0
+      - name: Use Node.js 20.10.0
         uses: actions/setup-node@v3
         with:
-          node-version: 18.16.0
+          node-version: 20.10.0
           cache: 'yarn'
       - uses: actions/cache@v2
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --immutable  --immutable-cache 
       - run: yarn code:typing
 
   unit-test:
@@ -63,16 +63,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 18.16.0
+      - name: Use Node.js 20.10.0
         uses: actions/setup-node@v3
         with:
-          node-version: 18.16.0
+          node-version: 20.10.0
           cache: 'yarn'
       - uses: actions/cache@v2
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --immutable  --immutable-cache 
       - run: yarn test:unit
 
   mutation-test:
@@ -80,14 +80,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 18.16.0
+      - name: Use Node.js 20.10.0
         uses: actions/setup-node@v3
         with:
-          node-version: 18.16.0
+          node-version: 20.10.0
           cache: 'yarn'
       - uses: actions/cache@v2
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --immutable  --immutable-cache 
       - run: yarn test:mutation

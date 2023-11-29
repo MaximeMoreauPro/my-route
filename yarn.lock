@@ -3338,7 +3338,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.0.1":
+"autoprefixer@npm:^10.4.16":
   version: 10.4.16
   resolution: "autoprefixer@npm:10.4.16"
   dependencies:
@@ -9762,7 +9762,7 @@ __metadata:
   dependencies:
     "@types/react": "npm:^18.2.39"
     "@types/react-dom": "npm:^18.2.17"
-    autoprefixer: "npm:^10.0.1"
+    autoprefixer: "npm:^10.4.16"
     eslint-config-next: "npm:^14.0.3"
     next: "npm:^14.0.3"
     postcss: "npm:^8.4.31"

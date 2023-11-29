@@ -34,7 +34,7 @@ const createUserUseCase = new CreateUserUseCase(userRepository, idProvider);
 const postRideUseCase = new PostRideUseCase(
   rideRepository,
   dateProvider,
-  idProvider
+  idProvider,
 );
 const viewUserRidesUseCase = new ViewUserRidesUseCase(rideRepository);
 const cli = new Command();
@@ -65,7 +65,7 @@ cli
           console.error(e);
           process.exit(1);
         }
-      })
+      }),
   )
   .addCommand(
     new Command('post-ride')
@@ -101,7 +101,7 @@ cli
         } else {
           console.error(`The user ${userName} does not exist!`);
         }
-      })
+      }),
   )
   .addCommand(
     new Command('view-user-rides')
@@ -125,7 +125,7 @@ cli
         } else {
           console.error(`The user ${userName} does not exist!`);
         }
-      })
+      }),
   );
 
 async function main() {

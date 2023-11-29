@@ -19,7 +19,7 @@ describe('Feature: create a user', () => {
 
     await fixture.thenTheCreatedUserHasTheId(
       'alex@johnson.com',
-      fixture.getIdByIndex(0)
+      fixture.getIdByIndex(0),
     );
   });
 });
@@ -37,7 +37,7 @@ const createFixture = () => {
     },
     async thenTheCreatedUserHasTheId(
       userEmail: string,
-      expectedUserId: string
+      expectedUserId: string,
     ) {
       const user = await userRepository.getUserByEmail(userEmail);
 

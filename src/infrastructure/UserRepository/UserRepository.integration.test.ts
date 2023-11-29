@@ -1,18 +1,12 @@
-import * as path from 'path';
-import * as fs from 'fs';
-
 import { UserRepository } from '@/application/repositories/UserRepository';
 import { Alex, Bob, Zoe } from '@/infrastructure/tests/User.test-data';
 
-// import { FileSystemUserRepository } from './UserRepository.file-system';
 import { InMemoryUserRepository } from './UserRepository.in-memory';
-
-const USERS_TEST_FILE = path.join(__dirname, 'users-test.json');
 
 describe('UserRepository', () => {
   runUserRepositoryTests(
     'InMemoryUserRepository',
-    () => new InMemoryUserRepository()
+    () => new InMemoryUserRepository(),
   );
 });
 
@@ -22,7 +16,7 @@ function runUserRepositoryTests(
     | 'InMemoryUserRepository',
   userRepositoryFactory: () => UserRepository,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  reset: () => Promise<void> = async () => {}
+  reset: () => Promise<void> = async () => {},
 ) {
   describe(userRepositoryImplementation, () => {
     let userRepository: UserRepository;

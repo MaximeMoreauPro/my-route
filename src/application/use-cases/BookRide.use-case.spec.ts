@@ -37,7 +37,7 @@ type CreateFixtureParams = {
 const createFixture = (
   { rideRepository }: CreateFixtureParams = {
     rideRepository: new InMemoryRideRepository(),
-  }
+  },
 ) => {
   const bookRideUseCase = new BookRideUseCase(rideRepository);
 
@@ -51,9 +51,8 @@ const createFixture = (
     },
 
     async thenRideShouldBeBookedByUser({ userId }: { userId: string }) {
-      const bookedRides = await rideRepository.getRidesBookedByPassenger(
-        userId
-      );
+      const bookedRides =
+        await rideRepository.getRidesBookedByPassenger(userId);
       expect(bookedRides).toHaveLength(1);
       const ride = bookedRides[0];
       expect(ride.passengers).toHaveLength(1);

@@ -14,7 +14,7 @@ export class ViewUserRidesUseCase {
   }: ViewUserRidesQuery): Promise<RideData[] | { message: string }> {
     try {
       const userRides = await this.rideRepository.getRidesPostedByDriver(
-        user.id
+        user.id,
       );
 
       if (userRides.length === 0) {

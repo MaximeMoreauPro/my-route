@@ -5,7 +5,7 @@ export class User extends Entity {
     id: string,
     readonly firstName: string,
     readonly lastName: string,
-    readonly email: string
+    readonly email: string,
   ) {
     super(id);
   }

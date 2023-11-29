@@ -15,7 +15,7 @@ type CreateFixtureParams = {
 export const createFixture = (
   { rideRepository }: CreateFixtureParams = {
     rideRepository: new InMemoryRideRepository(),
-  }
+  },
 ) => {
   const viewUserRidesUseCase = new ViewUserRidesUseCase(rideRepository);
   let userRides: RideData[];
@@ -26,9 +26,8 @@ export const createFixture = (
       rideRepository.givenTheseRidesExist(existingRides);
     },
     async whenViewUserRides(viewUserRidesQuery: ViewUserRidesQuery) {
-      const viewUserRidesQueryResult = await viewUserRidesUseCase.handle(
-        viewUserRidesQuery
-      );
+      const viewUserRidesQueryResult =
+        await viewUserRidesUseCase.handle(viewUserRidesQuery);
       if (viewUserRidesQueryResult instanceof Array) {
         userRides = viewUserRidesQueryResult;
       } else {

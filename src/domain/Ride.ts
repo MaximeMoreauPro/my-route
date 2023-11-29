@@ -14,7 +14,7 @@ export class Ride extends Entity {
     readonly departureTime: string,
     readonly destinationPlace: string,
     readonly destinationTime: string,
-    readonly postedAt: string
+    readonly postedAt: string,
   ) {
     super(id);
   }
@@ -41,7 +41,7 @@ export class Ride extends Entity {
 
     checkDepartureTimeAfterDestinationTime(
       data.destinationTime,
-      data.departureTime
+      data.departureTime,
     );
 
     const trimedDeparturePlace = data.departurePlace.trim();
@@ -52,7 +52,7 @@ export class Ride extends Entity {
 
     checkSameDepartureAndDestinationPlace(
       trimedDeparturePlace,
-      trimedDestinationPlace
+      trimedDestinationPlace,
     );
 
     return new Ride(
@@ -62,7 +62,7 @@ export class Ride extends Entity {
       data.departureTime,
       trimedDestinationPlace,
       data.destinationTime,
-      data.postedAt
+      data.postedAt,
     );
   }
 }
@@ -70,7 +70,7 @@ export class Ride extends Entity {
 function checkDatetime(date: string) {
   if (
     !/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/.test(
-      date
+      date,
     )
   ) {
     throw new MyRouteError('WrongFormatDatetimeError');
@@ -85,7 +85,7 @@ function checkPassedDepartureTime(departureTime: string, postedAt: string) {
 
 function checkDepartureTimeAfterDestinationTime(
   destinationTime: string,
-  departureTime: string
+  departureTime: string,
 ) {
   if (destinationTime <= departureTime) {
     throw new MyRouteError('DepartureTimeAfterDestinationTimeError');
@@ -100,7 +100,7 @@ function checkEmptyPlace(place: string) {
 
 function checkSameDepartureAndDestinationPlace(
   departurePlace: string,
-  destinationPlace: string
+  destinationPlace: string,
 ) {
   if (departurePlace === destinationPlace) {
     throw new MyRouteError('SameDepartureAndDestinationPlaceError');

@@ -51,7 +51,7 @@ describe('Feature: post a ride', () => {
 
       fixture.thenErrorShouldBe(
         'DepartureTimeAfterDestinationTimeError',
-        'the departure time must be before the destination time'
+        'the departure time must be before the destination time',
       );
     });
 
@@ -68,7 +68,7 @@ describe('Feature: post a ride', () => {
 
       fixture.thenErrorShouldBe(
         'DepartureTimeAfterDestinationTimeError',
-        'the departure time must be before the destination time'
+        'the departure time must be before the destination time',
       );
     });
   });
@@ -87,7 +87,7 @@ describe('Feature: post a ride', () => {
 
       fixture.thenErrorShouldBe(
         'PassedDepartureTimeError',
-        'the departure time must be in the future'
+        'the departure time must be in the future',
       );
     });
 
@@ -104,7 +104,7 @@ describe('Feature: post a ride', () => {
 
       fixture.thenErrorShouldBe(
         'PassedDepartureTimeError',
-        'the departure time must be in the future'
+        'the departure time must be in the future',
       );
     });
   });
@@ -123,7 +123,7 @@ describe('Feature: post a ride', () => {
 
       fixture.thenErrorShouldBe(
         'EmptyPlaceError',
-        'the place must not be empty'
+        'the place must not be empty',
       );
     });
 
@@ -140,7 +140,7 @@ describe('Feature: post a ride', () => {
 
       fixture.thenErrorShouldBe(
         'EmptyPlaceError',
-        'the place must not be empty'
+        'the place must not be empty',
       );
     });
   });
@@ -159,7 +159,7 @@ describe('Feature: post a ride', () => {
 
       fixture.thenErrorShouldBe(
         'SameDepartureAndDestinationPlaceError',
-        'the departure and destination places must be different'
+        'the departure and destination places must be different',
       );
     });
   });
@@ -174,7 +174,7 @@ const createFixture = () => {
   const postRideUseCase = new PostRideUseCase(
     rideRepository,
     dateProvider,
-    idProvider
+    idProvider,
   );
   let thrownError: unknown;
 
@@ -194,7 +194,7 @@ const createFixture = () => {
     },
     thenErrorShouldBe(
       expectedErrorCode: MyRouteErrorCode,
-      expectedErrorMessage: string
+      expectedErrorMessage: string,
     ) {
       expect(thrownError).toBeInstanceOf(MyRouteError);
       expect((thrownError as MyRouteError).code).toBe(expectedErrorCode);

@@ -43,7 +43,7 @@ describe('Feature: view user rides', () => {
       });
 
       fixture.thenDisplayedMessageShouldBe(
-        `${Zoe.firstName} ${Zoe.lastName} has no ride`
+        `${Zoe.firstName} ${Zoe.lastName} has no ride`,
       );
     });
   });
@@ -63,7 +63,7 @@ describe('Feature: view user rides', () => {
       });
 
       fixture.thenDisplayedMessageShouldBe(
-        `${Zoe.firstName} ${Zoe.lastName}'s rides cannot be fetched. Please try later`
+        `${Zoe.firstName} ${Zoe.lastName}'s rides cannot be fetched. Please try later`,
       );
     });
   });

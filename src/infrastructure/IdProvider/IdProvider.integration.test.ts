@@ -12,7 +12,7 @@ describe('IdProvider', () => {
 
 function runIdProviderTests(
   idProviderName: 'UUIDv4IdProvider' | 'FakeIdProvider',
-  idProviderFactory: () => IdProvider
+  idProviderFactory: () => IdProvider,
 ) {
   describe(idProviderName, () => {
     let idProvider: IdProvider;
@@ -35,23 +35,23 @@ function runIdProviderTests(
           idProvider.getId(),
           idProvider.getId(),
           idProvider.getId(),
-        ])
+        ]),
       ).toBe(false);
     });
 
     if (idProviderName === 'FakeIdProvider') {
       it('should generate fake UUIDs accessible through their index', () => {
         expect(idProvider.getId()).toBe(
-          (idProvider as FakeIdProvider).getIdByIndex(0)
+          (idProvider as FakeIdProvider).getIdByIndex(0),
         );
         expect(idProvider.getId()).toBe(
-          (idProvider as FakeIdProvider).getIdByIndex(1)
+          (idProvider as FakeIdProvider).getIdByIndex(1),
         );
         expect(idProvider.getId()).toBe(
-          (idProvider as FakeIdProvider).getIdByIndex(2)
+          (idProvider as FakeIdProvider).getIdByIndex(2),
         );
         expect(idProvider.getId()).toBe(
-          (idProvider as FakeIdProvider).getIdByIndex(3)
+          (idProvider as FakeIdProvider).getIdByIndex(3),
         );
       });
     }

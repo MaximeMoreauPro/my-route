@@ -13,7 +13,7 @@ describe('Rule: the datetime must be in ISO format', () => {
         destinationPlace: 'Brighton',
         destinationTime: '2023-01-01T14:30:00.000Z',
         passengers: [],
-      })
+      }),
     ).not.toThrow();
   });
 
@@ -28,9 +28,9 @@ describe('Rule: the datetime must be in ISO format', () => {
         destinationPlace: 'Brighton',
         destinationTime: '2023-01-01T14:30:00.000Z',
         passengers: [],
-      })
+      }),
     ).toThrow(
-      /^the datetime must be in the ISO 8601 format YYYY-MM-DDTHH:mm:ss.sssZ$/
+      /^the datetime must be in the ISO 8601 format YYYY-MM-DDTHH:mm:ss.sssZ$/,
     );
 
     expect(() =>
@@ -43,9 +43,9 @@ describe('Rule: the datetime must be in ISO format', () => {
         destinationPlace: 'Brighton',
         destinationTime: '2023-01-01T14:30:00.000Z',
         passengers: [],
-      })
+      }),
     ).toThrow(
-      /^the datetime must be in the ISO 8601 format YYYY-MM-DDTHH:mm:ss.sssZ$/
+      /^the datetime must be in the ISO 8601 format YYYY-MM-DDTHH:mm:ss.sssZ$/,
     );
 
     expect(() =>
@@ -58,9 +58,9 @@ describe('Rule: the datetime must be in ISO format', () => {
         destinationPlace: 'Brighton',
         destinationTime: '2023-01-01-08:00',
         passengers: [],
-      })
+      }),
     ).toThrow(
-      /^the datetime must be in the ISO 8601 format YYYY-MM-DDTHH:mm:ss.sssZ$/
+      /^the datetime must be in the ISO 8601 format YYYY-MM-DDTHH:mm:ss.sssZ$/,
     );
   });
 });

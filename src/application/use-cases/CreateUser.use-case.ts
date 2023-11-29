@@ -7,7 +7,7 @@ export type CreateUserCommand = Omit<User, 'id'>;
 export class CreateUserUseCase {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly idProvider: IdProvider
+    private readonly idProvider: IdProvider,
   ) {}
 
   async handle(createUserCommand: CreateUserCommand): Promise<void> {

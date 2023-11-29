@@ -17,7 +17,7 @@ export class InMemoryRideRepository implements RideRepository {
 
   async getRidesBookedByPassenger(userId: string): Promise<RideData[]> {
     const bookedRides = this.rides.filter(ride =>
-      ride.passengers.some(passenger => passenger.id === userId)
+      ride.passengers.some(passenger => passenger.id === userId),
     );
     return Promise.resolve(bookedRides);
   }

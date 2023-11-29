@@ -16,7 +16,7 @@ export class PostRideUseCase {
   constructor(
     private readonly rideRepository: RideRepository,
     private readonly dateProvider: DateProvider,
-    private readonly idProvider: IdProvider
+    private readonly idProvider: IdProvider,
   ) {}
 
   async handle(postRideCommand: PostRideCommand) {

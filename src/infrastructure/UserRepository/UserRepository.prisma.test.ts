@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 import {
   PostgreSqlContainer,
   StartedPostgreSqlContainer,
-} from 'testcontainers';
+} from '@testcontainers/postgresql';
 import { promisify } from 'util';
 
 import { Alex } from '@/infrastructure/tests/User.test-data';
@@ -28,7 +28,7 @@ describe('PrismaUserRepository', () => {
       .start();
 
     const databaseUrl = `postgresql://${username}:${password}@${container.getHost()}:${container.getMappedPort(
-      5432
+      5432,
     )}/${database}`;
 
     prismaClient = new PrismaClient({

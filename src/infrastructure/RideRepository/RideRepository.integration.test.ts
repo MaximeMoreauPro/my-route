@@ -1,32 +1,14 @@
-import * as path from 'path';
-import * as fs from 'fs';
-
 import { RideRepository } from '@/application/repositories/RideRepository';
 import { Ride } from '@/domain/Ride';
 import { Alex, Zoe } from '@/infrastructure/tests/User.test-data';
 import { rideBuilder } from '@/infrastructure/tests/Ride.builder';
 
-import { FileSystemRideRepository } from './RideRepository.file-system';
 import { InMemoryRideRepository } from './RideRepository.in-memory';
-
-const RIDE_TEST_FILE = path.join(__dirname, 'rides-test.json');
 
 describe('RideRepository', () => {
   runRideRepositoryTests(
-    'FileSystemRideRepository',
-    () => new FileSystemRideRepository(RIDE_TEST_FILE),
-    () => {
-      try {
-        return fs.promises.rm(RIDE_TEST_FILE, { force: true });
-      } catch (e) {
-        console.error(e);
-      }
-      return Promise.resolve();
-    }
-  );
-  runRideRepositoryTests(
     'InMemoryRideRepository',
-    () => new InMemoryRideRepository()
+    () => new InMemoryRideRepository(),
   );
 });
 
@@ -36,7 +18,7 @@ function runRideRepositoryTests(
     | 'InMemoryRideRepository',
   rideRepositoryFactory: () => RideRepository,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  reset: () => Promise<void> = async () => {}
+  reset: () => Promise<void> = async () => {},
 ) {
   describe(rideRepositoryImplementation, () => {
     let rideRepository: RideRepository;
@@ -60,7 +42,7 @@ function runRideRepositoryTests(
       await rideRepository.postRide(Ride.fromData(alexRide));
 
       await rideRepository.postRide(
-        Ride.fromData(rideBuilder().withId('2').drivenBy(Zoe).build())
+        Ride.fromData(rideBuilder().withId('2').drivenBy(Zoe).build()),
       );
 
       const alexRides2 = rideBuilder().withId('3').build();

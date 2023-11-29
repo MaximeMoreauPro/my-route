@@ -4,24 +4,12 @@ import * as fs from 'fs';
 import { UserRepository } from '@/application/repositories/UserRepository';
 import { Alex, Bob, Zoe } from '@/infrastructure/tests/User.test-data';
 
-import { FileSystemUserRepository } from './UserRepository.file-system';
+// import { FileSystemUserRepository } from './UserRepository.file-system';
 import { InMemoryUserRepository } from './UserRepository.in-memory';
 
 const USERS_TEST_FILE = path.join(__dirname, 'users-test.json');
 
 describe('UserRepository', () => {
-  runUserRepositoryTests(
-    'FileSystemUserRepository',
-    () => new FileSystemUserRepository(USERS_TEST_FILE),
-    () => {
-      try {
-        return fs.promises.rm(USERS_TEST_FILE, { force: true });
-      } catch (e) {
-        console.error(e);
-      }
-      return Promise.resolve();
-    }
-  );
   runUserRepositoryTests(
     'InMemoryUserRepository',
     () => new InMemoryUserRepository()

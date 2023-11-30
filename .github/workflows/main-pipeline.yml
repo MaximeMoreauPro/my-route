@@ -73,6 +73,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - run: yarn install --immutable
+      - run: yarn workspace @my-route/shared prisma:generate
       - run: yarn test:unit
 
   mutation-test:
@@ -90,4 +91,5 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - run: yarn install --immutable
+      - run: yarn workspace @my-route/shared prisma:generate
       - run: yarn test:mutation

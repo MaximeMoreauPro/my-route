@@ -12,6 +12,7 @@
     "code:typing": "tsc --noEmit",
     "test:unit": "jest",
     "test:mutation": "stryker run",
+    "prisma:generate": "prisma generate",
     "check-deps-update": "npx --yes npm-check-updates --reject @types/node"
   },
   "bin": "dist/apps/cli.js",

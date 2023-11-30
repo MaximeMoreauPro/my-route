@@ -31,6 +31,27 @@ describe('PrismaUserRepository', () => {
       5432,
     )}/${database}`;
 
+    const { stderr: stderrDeploy, stdout: stdoutDeploy } = await asyncExec(
+      `DATABASE_URL=${databaseUrl} yarn dlx prisma migrate deploy`,
+    );
+
+    if (stderrDeploy) {
+      console.error(stderrDeploy);
+    }
+    if (stdoutDeploy) {
+      console.log(stdoutDeploy);
+    }
+
+    const { stderr: stderrGenerate, stdout: stdoutGenerate } =
+      await asyncExec(`prisma generate`);
+
+    if (stderrGenerate) {
+      console.error(stderrGenerate);
+    }
+    if (stdoutGenerate) {
+      console.log(stdoutGenerate);
+    }
+
     prismaClient = new PrismaClient({
       datasources: {
         db: {
@@ -38,17 +59,6 @@ describe('PrismaUserRepository', () => {
         },
       },
     });
-    const { stderr, stdout } = await asyncExec(
-      `DATABASE_URL=${databaseUrl} npx prisma migrate deploy`,
-    );
-
-    if (stderr) {
-      console.error(stderr);
-    }
-    if (stdout) {
-      console.log(stdout);
-    }
-
     return prismaClient.$connect();
   }, 1000 * 30);
 

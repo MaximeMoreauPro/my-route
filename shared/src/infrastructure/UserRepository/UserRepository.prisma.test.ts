@@ -32,7 +32,7 @@ describe('PrismaUserRepository', () => {
     )}/${database}`;
 
     const { stderr: stderrDeploy, stdout: stdoutDeploy } = await asyncExec(
-      `DATABASE_URL=${databaseUrl} yarn dlx prisma migrate deploy`,
+      `DATABASE_URL=${databaseUrl} npx prisma migrate deploy`,
     );
 
     if (stderrDeploy) {

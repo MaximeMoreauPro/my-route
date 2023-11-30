@@ -38,7 +38,16 @@ describe('PrismaUserRepository', () => {
         },
       },
     });
-    await asyncExec(`DATABASE_URL=${databaseUrl} npx prisma migrate deploy`);
+    const { stderr, stdout } = await asyncExec(
+      `DATABASE_URL=${databaseUrl} npx prisma migrate deploy`,
+    );
+
+    if (stderr) {
+      console.error(stderr);
+    }
+    if (stdout) {
+      console.log(stdout);
+    }
 
     return prismaClient.$connect();
   }, 1000 * 30);

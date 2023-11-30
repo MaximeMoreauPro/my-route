@@ -57,7 +57,7 @@ jobs:
         run: snyk code test --json # || true
 
       - name: Snyk Auth
-        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+        run: snyk auth $SNYK_TOKEN
 
         # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       - name: Snyk Open Source monitor

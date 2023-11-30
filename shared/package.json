@@ -5,6 +5,7 @@
   "description": "My Route app and admin - Shared code",
   "main": "dist/apps/cli.js",
   "scripts": {
+    "postinstall": "yarn prisma:generate",
     "build": "tsc && tsc-alias",
     "code:format": "prettier src --check",
     "code:format-write": "prettier src --write",

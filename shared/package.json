@@ -5,19 +5,28 @@
   "description": "My Route app and admin - Shared code",
   "main": "dist/apps/cli.js",
   "scripts": {
+    "postinstall": "yarn prisma:generate",
     "build": "tsc && tsc-alias",
-    "code:format": "prettier src",
+    "code:format": "prettier src --check",
     "code:format-write": "prettier src --write",
     "code:lint": "eslint src --max-warnings 0",
     "code:typing": "tsc --noEmit",
     "test:unit": "jest",
     "test:mutation": "stryker run",
+    "prisma:generate": "prisma generate",
     "check-deps-update": "npx --yes npm-check-updates --reject @types/node"
   },
   "bin": "dist/apps/cli.js",
   "devDependencies": {
+    "@stryker-mutator/core": "*",
     "@types/uuid": "^9.0.7",
-    "commander": "^11.1.0"
+    "commander": "^11.1.0",
+    "eslint": "*",
+    "jest": "*",
+    "prettier": "*",
+    "prisma": "*",
+    "tsc-alias": "*",
+    "typescript": "*"
   },
   "dependencies": {
     "@prisma/client": "^5.6.0",

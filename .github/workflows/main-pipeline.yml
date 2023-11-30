@@ -21,7 +21,7 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --immutable  --immutable-cache 
+      - run: yarn install --immutable
       - run: yarn code:format
 
   lint-code:
@@ -38,7 +38,7 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --immutable  --immutable-cache 
+      - run: yarn install --immutable
       - run: yarn code:lint
 
   typechecked-code:
@@ -55,7 +55,7 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --immutable  --immutable-cache 
+      - run: yarn install --immutable
       - run: yarn code:typing
 
   unit-test:
@@ -72,7 +72,7 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --immutable  --immutable-cache 
+      - run: yarn install --immutable
       - run: yarn test:unit
 
   mutation-test:
@@ -89,5 +89,5 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --immutable  --immutable-cache 
+      - run: yarn install --immutable
       - run: yarn test:mutation

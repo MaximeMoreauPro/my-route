@@ -4,17 +4,21 @@
   "version": "0.0.1",
   "description": "My Route app and admin - Monorepo with web and mobile frontend and backend",
   "workspaces": [
-    "shared"
+    "shared",
+    "web-app"
   ],
   "scripts": {
+    "postinstall": "yarn workspaces foreach --all run postinstall",
     "build": "yarn workspaces foreach --all run build",
+    "start": "yarn workspaces foreach --all run start",
+    "dev": "yarn workspaces foreach --all run dev",
     "code:format": "yarn workspaces foreach --all run code:format",
     "code:format-write": "yarn workspaces foreach --all run code:format-write",
     "code:lint": "yarn workspaces foreach --all run code:lint",
     "code:typing": "yarn workspaces foreach --all run code:typing",
     "test:unit": "yarn workspaces foreach --all run test:unit",
     "test:mutation": "yarn workspaces foreach --all run test:mutation",
-    "check-deps-update": "npx --yes npm-check-updates --reject @types/node"
+    "check-deps-update": "npx --yes npm-check-updates --reject @types/node && yarn workspaces foreach --all run check-deps-update"
   },
   "repository": {
     "type": "git",

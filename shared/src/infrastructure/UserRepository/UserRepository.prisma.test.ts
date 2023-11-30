@@ -16,6 +16,7 @@ const asyncExec = promisify(exec);
 describe('PrismaUserRepository', () => {
   let container: StartedPostgreSqlContainer;
   let prismaClient: PrismaClient;
+
   beforeAll(async () => {
     const database = 'my-route-test';
     const username = 'test-user';
@@ -31,6 +32,27 @@ describe('PrismaUserRepository', () => {
       5432,
     )}/${database}`;
 
+    const { stderr: stderrDeploy, stdout: stdoutDeploy } = await asyncExec(
+      `DATABASE_URL=${databaseUrl}  prisma migrate deploy`,
+    );
+
+    if (stderrDeploy) {
+      console.error(stderrDeploy);
+    }
+    if (stdoutDeploy) {
+      console.log(stdoutDeploy);
+    }
+
+    const { stderr: stderrGenerate, stdout: stdoutGenerate } =
+      await asyncExec(`prisma generate`);
+
+    if (stderrGenerate) {
+      console.error(stderrGenerate);
+    }
+    if (stdoutGenerate) {
+      console.log(stdoutGenerate);
+    }
+
     prismaClient = new PrismaClient({
       datasources: {
         db: {
@@ -38,8 +60,6 @@ describe('PrismaUserRepository', () => {
         },
       },
     });
-    await asyncExec(`DATABASE_URL=${databaseUrl} npx prisma migrate deploy`);
-
     return prismaClient.$connect();
   }, 1000 * 30);
 
